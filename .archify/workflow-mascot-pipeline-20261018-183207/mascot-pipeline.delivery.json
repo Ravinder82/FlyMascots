@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "8117c44c-657e-4795-a24d-5b7fbc0985d9",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/candidate.json",
+  "output": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.html",
+  "specification": {
+    "sha256": "a792fdf7308523d5da76ca387e9d1b999b15cd82408d065b273ed1b7c140c62b",
+    "bytes": 4747
+  },
+  "artifact": {
+    "sha256": "5bddfb527c6b32ef80d71cb5c8ab7c7f88134d7474ff549ac727fb9a4061caed",
+    "bytes": 827993
+  }
+}

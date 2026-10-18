@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/candidate.json",
+    "sha256": "a792fdf7308523d5da76ca387e9d1b999b15cd82408d065b273ed1b7c140c62b",
+    "bytes": 4747
+  },
+  "artifact": {
+    "path": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.html",
+    "sha256": "5bddfb527c6b32ef80d71cb5c8ab7c7f88134d7474ff549ac727fb9a4061caed",
+    "bytes": 827993
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.finalize.json",
+    "summaryReceipt": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.finalize-summary.json",
+    "browserCheckReceipt": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.1.0",
+    "availableVersion": "3.1.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-18T13:03:31.315Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 14210
+}

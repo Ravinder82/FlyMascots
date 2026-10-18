@@ -1,0 +1,33 @@
+{
+  "name": "ai-mascot-creator",
+  "version": "1.0.0",
+  "description": "Agent skill: create, port, animate, verify and sync a hyper-quality mascot in any project — the Axo/DayPilot pipeline. Skill docs + archify diagrams.",
+  "license": "MIT",
+  "author": "Ravinder Poonia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ravinder82/AI-Mascot-Creator.git"
+  },
+  "homepage": "https://github.com/Ravinder82/AI-Mascot-Creator#readme",
+  "keywords": [
+    "ai-skill",
+    "agent-skill",
+    "skill",
+    "mascot",
+    "character",
+    "threejs",
+    "scenekit",
+    "animation",
+    "spring-physics",
+    "mascotforge"
+  ],
+  "files": [
+    "skills",
+    "diagrams",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Mascot Pipeline — add, refine, sync a hyper-quality mascot",
+    "output": ".archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "user", "label": "Mascot Owner" },
+    { "id": "agent", "label": "AI Agent" },
+    { "id": "asset", "label": "Asset Pipeline" },
+    { "id": "host", "label": "Host Project" },
+    { "id": "harness", "label": "Verification Harness" },
+    { "id": "fixloop", "label": "Fix Loop", "variant": "exception" }
+  ],
+  "mainPath": ["intake", "route", "forge", "integrate", "animate", "sync", "verify", "diagram", "compare", "ship"],
+  "nodes": [
+    { "id": "intake", "lane": "user", "col": 0, "type": "frontend", "label": "Intake", "sublabel": "platforms · mood map · references", "tag": "user decides", "icon": "person" },
+    { "id": "route", "lane": "agent", "col": 1, "type": "backend", "label": "Choose Route", "sublabel": "export vs generate", "icon": "decision" },
+    { "id": "forge", "lane": "asset", "col": 1, "type": "external", "label": "MascotForge Pro", "sublabel": "GLB + engine.js", "tag": "route A" },
+    { "id": "generate", "lane": "asset", "col": 2, "type": "external", "label": "@ai-3d-mascot-studio", "sublabel": "idea/image → model", "tag": "route B" },
+    { "id": "integrate", "lane": "agent", "col": 2, "type": "backend", "label": "Wire + Adapter", "sublabel": "pivots · materials · 5 platforms" },
+    { "id": "animate", "lane": "agent", "col": 3, "type": "backend", "label": "Animate", "sublabel": "springs · blinks · arc-lifts", "tag": "no lerps" },
+    { "id": "sync", "lane": "host", "col": 3, "type": "backend", "label": "Mood Sync", "sublabel": "one enum · one map" },
+    { "id": "verify", "lane": "harness", "col": 3, "type": "security", "label": "Harness + Asserts", "sublabel": "moodtest · NaN · renders", "tag": "blocking" },
+    { "id": "diagram", "lane": "agent", "col": 4, "type": "frontend", "label": "@archify Diagram", "sublabel": "follow-along HTML", "tag": "mandatory" },
+    { "id": "compare", "lane": "user", "col": 5, "type": "security", "label": "Reference Check", "sublabel": "pixel by pixel", "tag": "human gate" },
+    { "id": "ship", "lane": "host", "col": 5, "type": "backend", "label": "Ship", "sublabel": "green suite · install", "icon": "success" },
+    { "id": "fix", "lane": "fixloop", "col": 4, "type": "backend", "label": "Fix One Cause", "sublabel": "re-run harness", "tag": "loop" }
+  ],
+  "edges": [
+    { "from": "intake", "to": "route" },
+    { "from": "route", "to": "forge", "label": "route A", "role": "branch" },
+    { "from": "route", "to": "generate", "label": "route B", "role": "branch", "variant": "dashed" },
+    { "from": "forge", "to": "integrate" },
+    { "from": "generate", "to": "integrate", "label": "either route", "role": "branch", "variant": "dashed" },
+    { "from": "integrate", "to": "animate" },
+    { "from": "animate", "to": "sync" },
+    { "from": "sync", "to": "verify" },
+    { "from": "verify", "to": "diagram", "label": "all green" },
+    { "from": "diagram", "to": "compare", "label": "review" },
+    { "from": "compare", "to": "ship", "label": "approved", "variant": "emphasis" },
+    { "from": "verify", "to": "fix", "label": "assert fails", "role": "error", "variant": "security" },
+    { "from": "compare", "to": "fix", "label": "off reference", "role": "error", "variant": "security" },
+    { "from": "fix", "to": "animate", "label": "root cause fixed", "role": "return" }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Feel alive by construction",
+      "items": [
+        "Damped springs at 120 Hz drive every channel — lerps are banned",
+        "A mood change lands as a boop impulse, never a jump",
+        "Breathing, randomized blinks and gaze saccades always run",
+        "Accessories arc over geometry; hands stay outside the torso"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Non-negotiables",
+      "items": [
+        "Mood map and quality bar are user decisions, not guesses",
+        "Verify through the app's real scene builder, never a copy",
+        "Assert eulers — simdRotation misleads on some rigs",
+        "Every run ends with an @archify diagram"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Two asset routes, five platforms",
+      "items": [
+        "Route A: MascotForge Pro export — GLB + mascot-engine.js (proven on Axo)",
+        "Route B: @ai-3d-mascot-studio builds from an idea or image",
+        "Adapters: website, Swift/SceneKit, React Native, blog, Electron",
+        "Assets stay local; zero external runtime deps"
+      ]
+    }
+  ]
+}
