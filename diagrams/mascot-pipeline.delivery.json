@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c6391c52-c344-4846-9b5a-6cf9b559db80",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/candidate.json",
+  "output": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.html",
+  "specification": {
+    "sha256": "5b99363d82c63b8595f26f3b988829ebfb2bd7fbb3aa9813c9141f090b526727",
+    "bytes": 4716
+  },
+  "artifact": {
+    "sha256": "e758a001424a5c0175cd65b7679193f7140b20bf25e07435e67aa9d067ee5c1b",
+    "bytes": 828001
+  }
+}

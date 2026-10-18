@@ -54,4 +54,4 @@ Plain `screencapture` grabs the wallpaper — always target the window id. Drivi
 
 - Project's own test suite green (`make selftest` on DayPilot: 8/8 incl. report-hygiene).
 - Clean build, 0 warnings.
-- Then — and only then — the archify diagram (SKILL.md step 8) and the user-facing review round.
+- Then — and only then — the process diagram (SKILL.md step 8) and the user-facing review round.

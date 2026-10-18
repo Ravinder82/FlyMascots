@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/candidate.json",
+    "sha256": "5b99363d82c63b8595f26f3b988829ebfb2bd7fbb3aa9813c9141f090b526727",
+    "bytes": 4716
+  },
+  "artifact": {
+    "path": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.html",
+    "sha256": "e758a001424a5c0175cd65b7679193f7140b20bf25e07435e67aa9d067ee5c1b",
+    "bytes": 828001
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.finalize.json",
+    "summaryReceipt": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.finalize-summary.json",
+    "browserCheckReceipt": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.1.0",
+    "availableVersion": "3.1.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-18T13:03:31.315Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5045
+}

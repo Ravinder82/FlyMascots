@@ -6,11 +6,11 @@
   "status": "pass",
   "visualReview": "not-requested",
   "provenance": "current",
-  "deliveryReceiptId": "8117c44c-657e-4795-a24d-5b7fbc0985d9",
+  "deliveryReceiptId": "c6391c52-c344-4846-9b5a-6cf9b559db80",
   "artifact": {
-    "path": "/Users/ravinderpoonia/Developer/AI-Mascot-Creator/.archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.html",
-    "sha256": "5bddfb527c6b32ef80d71cb5c8ab7c7f88134d7474ff549ac727fb9a4061caed",
-    "bytes": 827993
+    "path": "/Users/ravinderpoonia/Developer/FlyMascots/diagrams/mascot-pipeline.html",
+    "sha256": "e758a001424a5c0175cd65b7679193f7140b20bf25e07435e67aa9d067ee5c1b",
+    "bytes": 828001
   },
   "state": {
     "detail": "read",
@@ -32,7 +32,7 @@
         "innerWidth": 1440,
         "innerHeight": 900,
         "scrollWidth": 1440,
-        "scrollHeight": 1421,
+        "scrollHeight": 1427,
         "overflowX": false,
         "overflowY": true,
         "verticalScrollAccepted": true,
@@ -47,11 +47,11 @@
           "bodyPaddingPx": 12,
           "headerPx": 52,
           "diagramChromePx": 78,
-          "svgPx": 1279,
+          "svgPx": 1284,
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -61,7 +61,7 @@
               "intake",
               "compare"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -75,7 +75,7 @@
               "animate",
               "diagram"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -87,7 +87,7 @@
               "forge",
               "generate"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -110,7 +110,7 @@
             "nodeIds": [
               "verify"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -121,7 +121,7 @@
             "nodeIds": [
               "fix"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           }
@@ -166,7 +166,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1536,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -175,7 +175,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -290,7 +290,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1856,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -299,7 +299,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -414,7 +414,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1920,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 68,
@@ -423,7 +423,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -581,7 +581,7 @@
         "innerWidth": 1440,
         "innerHeight": 900,
         "scrollWidth": 1440,
-        "scrollHeight": 1421,
+        "scrollHeight": 1427,
         "overflowX": false,
         "overflowY": true,
         "verticalScrollAccepted": true,
@@ -596,11 +596,11 @@
           "bodyPaddingPx": 12,
           "headerPx": 52,
           "diagramChromePx": 78,
-          "svgPx": 1279,
+          "svgPx": 1284,
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -610,7 +610,7 @@
               "intake",
               "compare"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -624,7 +624,7 @@
               "animate",
               "diagram"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -636,7 +636,7 @@
               "forge",
               "generate"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -659,7 +659,7 @@
             "nodeIds": [
               "verify"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -670,7 +670,7 @@
             "nodeIds": [
               "fix"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           }
@@ -715,7 +715,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1536,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -724,7 +724,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -839,7 +839,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1856,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -848,7 +848,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -963,7 +963,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1920,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 68,
@@ -972,7 +972,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -1082,7 +1082,7 @@
         "innerWidth": 1440,
         "innerHeight": 900,
         "scrollWidth": 1440,
-        "scrollHeight": 1421,
+        "scrollHeight": 1427,
         "overflowX": false,
         "overflowY": true,
         "verticalScrollAccepted": true,
@@ -1097,11 +1097,11 @@
           "bodyPaddingPx": 12,
           "headerPx": 52,
           "diagramChromePx": 78,
-          "svgPx": 1279,
+          "svgPx": 1284,
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -1111,7 +1111,7 @@
               "intake",
               "compare"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -1125,7 +1125,7 @@
               "animate",
               "diagram"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -1137,7 +1137,7 @@
               "forge",
               "generate"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -1160,7 +1160,7 @@
             "nodeIds": [
               "verify"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           },
@@ -1171,7 +1171,7 @@
             "nodeIds": [
               "fix"
             ],
-            "nodeSpanPx": 95,
+            "nodeSpanPx": 96,
             "spaceAboveNodesPx": 48,
             "spaceBelowNodesPx": 6
           }
@@ -1216,7 +1216,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1536,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -1225,7 +1225,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -1340,7 +1340,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1856,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 60,
@@ -1349,7 +1349,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",
@@ -1464,7 +1464,7 @@
         "readerFit": "width-first",
         "ok": true,
         "readerWidth": 1920,
-        "diagramWidth": 1440,
+        "diagramWidth": 1434,
         "pageComposition": {
           "bodyPaddingPx": 64,
           "headerPx": 68,
@@ -1473,7 +1473,7 @@
           "cardsPx": 0,
           "viewBoxHeight": 912
         },
-        "viewBoxWidth": 960,
+        "viewBoxWidth": 956,
         "workflowLanes": [
           {
             "frameId": "lane-0",

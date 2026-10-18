@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "Mascot Pipeline — add, refine, sync a hyper-quality mascot",
-    "output": ".archify/workflow-mascot-pipeline-20261018-183207/mascot-pipeline.html",
+    "output": "diagrams/mascot-pipeline.html",
     "locale": "en",
     "quality_profile": "showcase"
   },
@@ -25,7 +25,7 @@
     { "id": "animate", "lane": "agent", "col": 3, "type": "backend", "label": "Animate", "sublabel": "springs · blinks · arc-lifts", "tag": "no lerps" },
     { "id": "sync", "lane": "host", "col": 3, "type": "backend", "label": "Mood Sync", "sublabel": "one enum · one map" },
     { "id": "verify", "lane": "harness", "col": 3, "type": "security", "label": "Harness + Asserts", "sublabel": "moodtest · NaN · renders", "tag": "blocking" },
-    { "id": "diagram", "lane": "agent", "col": 4, "type": "frontend", "label": "@archify Diagram", "sublabel": "follow-along HTML", "tag": "mandatory" },
+    { "id": "diagram", "lane": "agent", "col": 4, "type": "frontend", "label": "Process Diagram", "sublabel": "follow-along HTML", "tag": "mandatory" },
     { "id": "compare", "lane": "user", "col": 5, "type": "security", "label": "Reference Check", "sublabel": "pixel by pixel", "tag": "human gate" },
     { "id": "ship", "lane": "host", "col": 5, "type": "backend", "label": "Ship", "sublabel": "green suite · install", "icon": "success" },
     { "id": "fix", "lane": "fixloop", "col": 4, "type": "backend", "label": "Fix One Cause", "sublabel": "re-run harness", "tag": "loop" }
@@ -64,7 +64,7 @@
         "Mood map and quality bar are user decisions, not guesses",
         "Verify through the app's real scene builder, never a copy",
         "Assert eulers — simdRotation misleads on some rigs",
-        "Every run ends with an @archify diagram"
+        "Every run ends with an interactive process diagram"
       ]
     },
     {

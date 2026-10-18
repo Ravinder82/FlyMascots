@@ -52,6 +52,6 @@ Starting config (tune per rig, these shipped on Axo):
 
 ## Sync with host states
 
-- One enum, one mapping table, documented in the archify diagram (user owns the mapping).
+- One enum, one mapping table, documented in the process diagram (user owns the mapping).
 - DayPilot reference: start/resume→`working`, pause→`idle`, stop→`think`, quit-while-tracking→`celebrate`.
 - Adding a host state later = add binding + one mood assertion. No silent drift.
