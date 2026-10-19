@@ -1,7 +1,7 @@
 {
   "name": "flymascots",
-  "version": "1.0.1",
-  "description": "Agent skill: give any project a mascot that feels alive — from an idea, image or MascotForge export to a spring-animated, state-synced character that's verified automatically.",
+  "version": "1.1.0",
+  "description": "Agent skill: give any project a mascot that feels alive — from an idea, image or MascotForge export to a spring-animated, state-synced character that's verified automatically. Ships two skills: flymascots (the pipeline) and ai-3d-mascot-studio (img2threejs character build).",
   "license": "MIT",
   "author": "Ravinder Poonia",
   "repository": {
@@ -15,8 +15,10 @@
     "skill",
     "mascot",
     "flymascots",
+    "ai-3d-mascot-studio",
     "character",
     "threejs",
+    "img2threejs",
     "scenekit",
     "animation",
     "spring-physics",

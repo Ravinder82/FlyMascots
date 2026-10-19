@@ -12,8 +12,8 @@ An agent skill that takes a mascot from an idea, an image, or a MascotForge expo
 
 Three steps, and the third is a word.
 
-### 1. Add the skill
-It lives beside your coding agent, ready whenever you want a character in your product.
+### 1. Add the skills
+Two land beside your coding agent — **flymascots** (the whole pipeline) and **ai-3d-mascot-studio** (sculpts the character from your idea or image) — ready whenever you want a character in your product.
 
 ```
 npx skills add Ravinder82/FlyMascots
@@ -36,7 +36,7 @@ setMood("working")
 npx skills add Ravinder82/FlyMascots
 
 # Or vendor the package
-npm i flymascots   # v1.0.1, MIT
+npm i flymascots   # v1.1.0, MIT
 ```
 
 Then ask your agent:
