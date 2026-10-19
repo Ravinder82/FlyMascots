@@ -10,15 +10,15 @@ with the film, land on the harness.
 
 ---
 
-## 0. Before anything (30 minutes, one-time)
+## 0. Before anything (one-time)
 
-| Step | Command / action |
+| Step | Status |
 | --- | --- |
-| Repo topics | GitHub → repo → About → topics: `agent-skills` `claude-skills` `ai-agents` `mascot` `threejs` `scenekit` `spring-physics` `character-animation` |
-| Social preview | GitHub → Settings → Social preview → upload `stills/out/og-card.png` |
-| Repo tag | `git tag v1.0.0 && git push --tags` |
-| skills.sh page | confirm `npx skills find mascot` returns the repo; customise the page per skills.sh/docs |
-| npm refresh (optional) | the package ships this README: `npm version patch && npm publish` — the README is the only change |
+| Repo description + homepage + topics (`agent-skills` `claude-skills` `ai-agents` `mascot` `threejs` `scenekit` `spring-physics` `character-animation`) | done 2026-10-19 |
+| Tag `v1.0.0` (points at the first npm release) | done 2026-10-19 |
+| npm refresh — v1.0.1 publishes the new README over the old one | in progress: publishing (npm login approval) |
+| Social preview | **manual** — GitHub → Settings → Social preview → upload `marketing/stills/out/og-card.png`. There is no API for this; GitHub's own community threads confirm it is UI-only. |
+| skills.sh page | no submission flow — the leaderboard is driven by anonymous install telemetry (see skills.sh/docs). `skills.sh/Ravinder82/FlyMascots` appears after the first real installs; then add the badge: `[![skills.sh](https://skills.sh/b/Ravinder82/FlyMascots)](https://skills.sh/Ravinder82/FlyMascots)` |
 | README check | open the repo README on github.com **and in dark mode** — the pipeline `<picture>` must swap, the film poster must show |
 
 ---

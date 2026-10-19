@@ -25,7 +25,7 @@ frame is the real viewer; nothing is a mockup.
   <video src="assets/reel-24s.mp4" poster="assets/reel-poster.png" width="720" controls muted loop playsinline></video>
 </p>
 
-<sub>Also rendered: <a href="marketing/renders/flymascots-story-16x9.mp4">story cut, 34 s</a> · <a href="marketing/renders/flymascots-reel-9x16.mp4">9:16 vertical</a> · <a href="marketing/renders/flymascots-story-9x16.mp4">story 9:16</a>.</sub>
+<sub>Direct file: <a href="assets/reel-24s.mp4">24 s reel (MP4, 3.3 MB)</a> · Also rendered: <a href="marketing/renders/flymascots-story-16x9.mp4">story cut, 34 s</a> · <a href="marketing/renders/flymascots-reel-9x16.mp4">9:16 vertical</a> · <a href="marketing/renders/flymascots-story-9x16.mp4">story 9:16</a>.</sub>
 
 ## Five moods, one enum
 
