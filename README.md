@@ -1,5 +1,13 @@
 <p align="center">
-  <video src="assets/launch-16x9.mp4" poster="assets/launch-poster.png" width="900" controls muted loop playsinline></video>
+  <video
+    src="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-16x9.mp4"
+    poster="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-poster.png"
+    width="900"
+    controls
+    muted
+    loop
+    playsinline
+  ></video>
 </p>
 
 # FlyMascots
