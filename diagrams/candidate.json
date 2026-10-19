@@ -22,8 +22,8 @@
     { "id": "forge", "lane": "asset", "col": 1, "type": "external", "label": "MascotForge Pro", "sublabel": "GLB + engine.js", "tag": "route A" },
     { "id": "generate", "lane": "asset", "col": 2, "type": "external", "label": "@ai-3d-mascot-studio", "sublabel": "idea/image → model", "tag": "route B" },
     { "id": "integrate", "lane": "agent", "col": 2, "type": "backend", "label": "Wire + Adapter", "sublabel": "pivots · materials · 5 platforms" },
-    { "id": "animate", "lane": "agent", "col": 3, "type": "backend", "label": "Animate", "sublabel": "springs · blinks · arc-lifts", "tag": "no lerps" },
-    { "id": "sync", "lane": "host", "col": 3, "type": "backend", "label": "Mood Sync", "sublabel": "one enum · one map" },
+    { "id": "animate", "lane": "agent", "col": 3, "type": "backend", "label": "Animate", "sublabel": "springs · blinks · arc-lifts", "tag": "no slides" },
+    { "id": "sync", "lane": "host", "col": 3, "type": "backend", "label": "Mood Sync", "sublabel": "one word · five moods" },
     { "id": "verify", "lane": "harness", "col": 3, "type": "security", "label": "Harness + Asserts", "sublabel": "moodtest · NaN · renders", "tag": "blocking" },
     { "id": "diagram", "lane": "agent", "col": 4, "type": "frontend", "label": "Process Diagram", "sublabel": "follow-along HTML", "tag": "mandatory" },
     { "id": "compare", "lane": "user", "col": 5, "type": "security", "label": "Reference Check", "sublabel": "pixel by pixel", "tag": "human gate" },
@@ -51,7 +51,7 @@
       "dot": "emerald",
       "title": "Feel alive by construction",
       "items": [
-        "Damped springs at 120 Hz drive every channel — lerps are banned",
+        "Damped springs at 120 Hz drive every channel — nothing slides",
         "A mood change lands as a boop impulse, never a jump",
         "Breathing, randomized blinks and gaze saccades always run",
         "Accessories arc over geometry; hands stay outside the torso"

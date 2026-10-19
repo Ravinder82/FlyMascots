@@ -26,7 +26,7 @@ Ready to paste. Assets to attach are named per item (all in `stills/out/` and
 
 **3 — the character**
 > The character breathes, blinks on its own timer and moves on springs — 70 k /
-> 11 d on the head. Your app drives one mood enum: start → working, pause →
+> 11 d on the head. Your app drives one word: start → working, pause →
 > idle, stop → think, quit → celebrate.
 >
 > 🖼 `stills/out/moods-16x9.png`
@@ -75,8 +75,8 @@ Ready to paste. Assets to attach are named per item (all in `stills/out/` and
 >
 > - reads your reference image / idea and picks a rig route
 > - ports a pose table (idle, working, think, celebrate, sleep) with spring
->   physics — 70 k / 11 d on the head, no lerps
-> - wires the moods to your app's states (one enum)
+>   physics — 70 k / 11 d on the head, nothing sliding
+> - wires the moods to your app's states (one word)
 > - **verifies**: per-mood numeric assertions, a 60-transition NaN / vanished-
 >   limb check, pose renders compared against your reference with sampled
 >   colours
@@ -106,7 +106,7 @@ captures, and a harness that catches NaN limbs
 >
 > Things that made the biggest difference:
 >
-> 1. **Springs, not lerps.** Every mood is a target pose; the character eases
+> 1. **Real weight, not slides.** Every mood is a target pose; the character eases
 >    with `k`/`d` per part (head 70/11) so transitions overshoot slightly and
 >    read as alive. Blinks run on their own 3.6 s timer.
 > 2. **One pose table, many consumers.** Poses are data. The web engine and the
@@ -142,7 +142,7 @@ page at `skills.sh/<owner>/<repo>` can be customised (docs: skills.sh/docs).
 **Long description (directory pages, awesome-list entries):**
 
 > FlyMascots is an agent skill that builds an animated app mascot end to end:
-> rig and pose table, spring physics (never lerps), blink and gaze behaviour,
+> rig and pose table, spring physics (nothing slides linearly), blink and gaze behaviour,
 > mood sync with your app's states, five platform routes (website/Three.js,
 > macOS+iOS/SceneKit, React Native, static pages, Electron), and a verification
 > harness that asserts every mood numerically, health-checks 60 transitions for
@@ -161,7 +161,7 @@ page at `skills.sh/<owner>/<repo>` can be customised (docs: skills.sh/docs).
 **Title options**
 - Add a mascot that feels alive (24 s)
 - Your app's mascot, but it breathes
-- One enum, five moods, no lerps
+- One word, five moods, real physics
 
 **Caption**
 

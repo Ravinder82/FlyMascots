@@ -294,6 +294,10 @@
   @media (prefers-reduced-motion: reduce) {
     .mood-tag .pulse { animation: none; }
   }
+
+  /* Capture mode must paint the same pixels every time — the mood pulse
+     breathes on an infinite loop, so it stops while shooting. */
+  .is-capture .mood-tag .pulse { animation: none !important; }
 </style>
 </head>
 <body>

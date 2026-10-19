@@ -19,7 +19,7 @@ aspirational — if a claim cannot be checked, it does not ship.
 | Claim | Source |
 | --- | --- |
 | Five moods — idle, working, think, celebrate, sleep | `skills/flymascots/references/verification.md` §2 |
-| Springs, not lerps | `skills/flymascots/SKILL.md` step 6; `references/animation-physics.md` |
+| Moves with real weight (springs, not slides) | `skills/flymascots/SKILL.md` step 6; `references/animation-physics.md` |
 | Numeric mood assertions (goggle 0.440, armR −0.780, eyes 0.080, hop 0.167 …) | `references/verification.md` §2, "the `moodtest` pattern" |
 | 60-transition NaN / vanish health check (`pivotsFinite()`) | `references/verification.md` §2 |
 | Pose renders compared with your reference, colour-sampled | `references/verification.md` §3–4 |

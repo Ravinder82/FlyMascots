@@ -237,7 +237,7 @@ const MoodMap: React.FC<{ vertical: boolean }> = ({ vertical }) => {
         </Kicker>
         <div style={{ marginTop: 22 }}>
           <Title
-            lines={['One mood enum.', "Your app's states."]}
+            lines={['One word.', "Your app's states."]}
             at={3}
             size={vertical ? 78 : 92}
             align="center"
@@ -275,7 +275,7 @@ const MoodMap: React.FC<{ vertical: boolean }> = ({ vertical }) => {
             opacity: interpolate(useCurrentFrame(), [beatFrames * 5, beatFrames * 5 + 8], [0, 1], clamp),
           }}
         >
-          one enum · one map · your app decides
+          one word · five moods · your app decides
         </div>
       </div>
     </AbsoluteFill>

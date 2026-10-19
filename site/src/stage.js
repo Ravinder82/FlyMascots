@@ -472,5 +472,28 @@ window.addEventListener('keydown', (event) => {
   if (event.key === 'b' || event.key === 'B') boop();
 });
 
+/* The host page drives the stage (site mood buttons, capture scripts).
+ * Works across frames — the stage never reaches into its parent. */
+window.addEventListener('message', (event) => {
+  const data = event && event.data;
+  if (!data || data.type !== 'flymascots') return;
+  if (data.freeze === true) {
+    // Deterministic pose: reset + step to the same sim time every time.
+    still({ mood: data.mood || mood });
+    return;
+  }
+  if (typeof data.seek === 'number') {
+    seekTo(data.seek, data.mood || mood);
+    return;
+  }
+  if (data.mood) setMood(data.mood);
+  if (data.boop) boop();
+});
+
 window.__AXO_READY = true;
 render();
+
+/* Tell a host page (the landing page, a capture script) we can take orders. */
+if (window.parent !== window) {
+  window.parent.postMessage({ type: 'flymascots', ready: true, mood }, '*');
+}

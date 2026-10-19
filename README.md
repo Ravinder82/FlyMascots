@@ -27,7 +27,7 @@ frame is the real viewer; nothing is a mockup.
 
 <sub>Direct file: <a href="assets/reel-24s.mp4">24 s reel (MP4, 3.3 MB)</a> · Also rendered: <a href="marketing/renders/flymascots-story-16x9.mp4">story cut, 34 s</a> · <a href="marketing/renders/flymascots-reel-9x16.mp4">9:16 vertical</a> · <a href="marketing/renders/flymascots-story-9x16.mp4">story 9:16</a>.</sub>
 
-## Five moods, one enum
+## Five moods, one word
 
 It breathes, blinks on its own timer, looks around, and bounces with spring
 physics — never a linear slide. Your app decides which mood it's in, and the
@@ -100,7 +100,7 @@ Nothing goes to you until it passes ([`references/verification.md`](skills/flyma
 - **Numeric mood assertions** — every mood driven through the real tick loop:
   working goggle `0.440`, arms `−0.48/+0.18`; think armR `−0.780`; celebrate
   armL `< −0.40`, hop `0.167`; sleep eyes `0.080`.
-- **60-transition health check** — rapid-cycle the mood enum, then assert
+- **60-transition health check** — rapid-cycle through all five moods, then assert
   `pivotsFinite()`: no NaN, no vanished limbs.
 - **Pose renders with the anti-blink rule** — snapshots come from the same
   scene-builder the app uses, retried until the eyes are open; each pose is

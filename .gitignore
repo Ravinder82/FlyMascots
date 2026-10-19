@@ -8,3 +8,8 @@ marketing/videos/out/
 
 # the remotion install is a symlink on this machine
 marketing/videos/node_modules
+
+# site review shots (regenerate: node marketing/tools/capture-site.mjs review)
+marketing/stills/site-review/
+# pipeline export scratch (capture-pipeline.mjs)
+marketing/stills/media/downloads/
