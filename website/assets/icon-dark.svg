@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FlyMascots">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7FE8D8"/>
+      <stop offset="1" stop-color="#2AB5A2"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15.5" fill="url(#tile)"/>
+  <rect x="11" y="27.4" width="42" height="7" rx="3.5" fill="#0B4A41" opacity=".6"/>
+  <circle cx="20.8" cy="30.9" r="8.2" fill="#0A1F1B"/>
+  <circle cx="43.2" cy="30.9" r="8.2" fill="#0A1F1B"/>
+  <circle cx="20.8" cy="30.9" r="8.2" fill="none" stroke="#0A1F1B" stroke-width="4.2"/>
+  <circle cx="43.2" cy="30.9" r="8.2" fill="none" stroke="#0A1F1B" stroke-width="4.2"/>
+  <rect x="28.6" y="28.8" width="6.8" height="4.2" rx="2.1" fill="#0A1F1B"/>
+  <circle cx="17.6" cy="27.5" r="2.2" fill="#FFFEFB"/>
+  <circle cx="40" cy="27.5" r="2.2" fill="#FFFEFB"/>
+</svg>

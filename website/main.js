@@ -1,8 +1,9 @@
 /* ============================================================
-   FlyMascots — landing page behaviour
-   Motion: reveals + count-up. Capture: window.CAPTURE API so the
-   marketing kit can shoot this page deterministically.
-   No Math.random(), time-based easing only — repeatable pixels.
+   FlyMascots — landing page behaviour v2
+   One entrance moment on load; after that the page is still and
+   the mascot is the only thing moving. Capture hooks (CAPTURE
+   API, ?capture=1, ?theme=, ?shot=) let the kit shoot this page
+   deterministically. No Math.random() — repeatable pixels.
    ============================================================ */
 
 (function () {
@@ -10,10 +11,11 @@
 
   var q = new URLSearchParams(location.search);
   var CAPTURE = q.get("capture") === "1";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
 
   /* ---------------- theme ---------------- */
 
-  var root = document.documentElement;
   var themeParam = q.get("theme");
   var saved = null;
   try { saved = localStorage.getItem("fm-theme"); } catch (e) { /* file:// */ }
@@ -21,7 +23,6 @@
   // Capture mode is deterministic: light unless a theme is asked for.
   if (CAPTURE) {
     setTheme(themeParam === "dark" ? "dark" : "light");
-    // Nothing may load lazily while shooting — every pixel is wanted.
     document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
       img.setAttribute("loading", "eager");
     });
@@ -36,11 +37,14 @@
   function setTheme(name) {
     root.setAttribute("data-theme", name);
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", name === "dark" ? "#0E1917" : "#F6F1E7");
+    if (meta) meta.setAttribute("content", name === "dark" ? "#141719" : "#F3F6F5");
     var btn = document.getElementById("themeToggle");
-    if (btn) {
-      btn.setAttribute("aria-label", name === "dark" ? "Switch to light theme" : "Switch to dark theme");
-    }
+    if (btn) btn.setAttribute("aria-label", "Switch to " + (name === "dark" ? "light" : "dark") + " theme");
+    var mark = document.querySelectorAll(".mark-icon");
+    mark.forEach(function (img) {
+      img.src = name === "dark" ? "assets/icon-dark.svg" : "assets/icon.svg";
+    });
+    syncPipeline(name);
   }
 
   var toggle = document.getElementById("themeToggle");
@@ -49,8 +53,6 @@
       var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
       setTheme(next);
       try { localStorage.setItem("fm-theme", next); } catch (e) {}
-      // the pipeline picture follows the OS; nudge its source for theme shots
-      syncPipeline(next);
     });
   }
 
@@ -61,84 +63,100 @@
     img.src = name === "dark" ? "assets/pipeline-dark.png" : "assets/pipeline-light.png";
     if (src) src.removeAttribute("srcset"); // explicit src wins for capture
   }
-  // The pipeline picture follows the page theme, not the OS preference.
-  syncPipeline(root.getAttribute("data-theme"));
-
-  /* ---------------- capture mode ---------------- */
 
   if (CAPTURE) root.classList.add("is-capture");
 
-  /* ---------------- nav state ---------------- */
+  /* ---------------- nav ---------------- */
 
   var nav = document.getElementById("nav");
   function onScroll() {
-    if (nav) nav.classList.toggle("scrolled", window.scrollY > 24);
+    if (nav) nav.classList.toggle("scrolled", window.scrollY > 16);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------------- reveals ---------------- */
+  /* ---------------- the one entrance moment ---------------- */
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function revealAll() {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-  }
-
-  if (CAPTURE || reduce || !("IntersectionObserver" in window)) {
-    revealAll();
+  var anims = Array.prototype.slice.call(document.querySelectorAll(".hero-anim"));
+  if (CAPTURE || reduce) {
+    anims.forEach(function (el) { el.classList.add("in"); });
   } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("in");
-        io.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-
-    // stagger siblings inside the same section (max 80ms steps)
-    document.querySelectorAll("section").forEach(function (sec) {
-      var items = sec.querySelectorAll(".reveal");
-      items.forEach(function (el, i) {
-        el.style.setProperty("--d", Math.min(i, 6) * 70 + "ms");
+    anims.forEach(function (el, i) {
+      el.style.setProperty("--d", 80 + i * 110 + "ms");
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        anims.forEach(function (el) { el.classList.add("in"); });
       });
     });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------------- count-up (proof strip) ---------------- */
+  /* ---------------- the stage (bare, transparent, alive) ---------------- */
 
-  var counters = Array.prototype.slice.call(document.querySelectorAll("[data-count]"));
+  var stage = document.getElementById("stageFrame");
+  var moodButtons = Array.prototype.slice.call(document.querySelectorAll("[data-mood]"));
+  var frozen = CAPTURE; // capture mode freezes the stage too, for exact pixels
+  var currentMood = q.get("mood") || "idle";
 
-  function runCounters(animated) {
-    counters.forEach(function (el) {
-      var target = Number(el.getAttribute("data-count")) || 0;
-      if (!animated) { el.textContent = String(target); return; }
-      var start = performance.now();
-      var dur = 900;
-      (function tick(now) {
-        var t = Math.min(1, (now - start) / dur);
-        var eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
-        el.textContent = String(Math.round(target * eased));
-        if (t < 1) requestAnimationFrame(tick);
-      })(start);
-    });
+  if (stage) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    stage.src =
+      "assets/stage.html?ui=0&bg=transparent&mood=" + encodeURIComponent(currentMood) +
+      "&dpr=" + dpr + (CAPTURE ? "&capture=1" : "");
   }
 
-  if (CAPTURE || reduce || !("IntersectionObserver" in window)) {
-    runCounters(false);
-  } else {
-    var strip = document.querySelector(".strip");
-    if (strip) {
-      var cio = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          runCounters(true);
-          cio.disconnect();
-        });
-      }, { threshold: 0.35 });
-      cio.observe(strip);
+  function sendStage(msg) {
+    if (stage && stage.contentWindow) {
+      msg.type = "flymascots";
+      stage.contentWindow.postMessage(msg, "*");
     }
+  }
+
+  function setMood(mood, silent) {
+    if (frozen) sendStage({ freeze: true, mood: mood });
+    else sendStage({ mood: mood });
+    moodButtons.forEach(function (b) {
+      var on = b.getAttribute("data-mood") === mood;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (!silent) currentMood = mood;
+  }
+
+  moodButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () { setMood(btn.getAttribute("data-mood")); });
+  });
+
+  var boopBtn = document.getElementById("boopBtn");
+  if (boopBtn) {
+    boopBtn.addEventListener("click", function () { sendStage({ boop: true }); });
+  }
+
+  // The stage announces itself; re-drive the current mood once it is up.
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && d.type === "flymascots" && d.ready) setMood(currentMood, true);
+  });
+
+  /* ---------------- mood loops (real footage, plays in view) ---------------- */
+
+  var loops = Array.prototype.slice.call(document.querySelectorAll(".mood-loop"));
+  if (CAPTURE || reduce || !("IntersectionObserver" in window)) {
+    loops.forEach(function (v) { v.removeAttribute("loop"); }); // posters carry the still
+  } else {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          if (v.preload !== "auto") v.preload = "auto";
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    loops.forEach(function (v) { vio.observe(v); });
   }
 
   /* ---------------- copy buttons ---------------- */
@@ -178,49 +196,6 @@
     return Promise.resolve();
   }
 
-  /* ---------------- stage control (mood buttons) ---------------- */
-
-  var stage = document.getElementById("stageFrame");
-  var moodButtons = Array.prototype.slice.call(document.querySelectorAll("[data-mood]"));
-  var frozen = CAPTURE; // capture mode freezes the stage too, for exact pixels
-
-  function sendStage(msg) {
-    if (stage && stage.contentWindow) {
-      msg.type = "flymascots";
-      stage.contentWindow.postMessage(msg, "*");
-    }
-  }
-
-  function setMood(mood, silent) {
-    if (frozen) sendStage({ freeze: true, mood: mood });
-    else sendStage({ mood: mood });
-    moodButtons.forEach(function (b) {
-      var on = b.getAttribute("data-mood") === mood;
-      b.classList.toggle("on", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-    if (!silent) currentMood = mood;
-  }
-  var currentMood = (q.get("mood") || "idle");
-
-  // The iframe gets its source here (not in the HTML) so capture mode can
-  // ask the stage for its frozen, deterministic build.
-  if (stage) {
-    stage.src =
-      "assets/stage.html?mood=" + encodeURIComponent(currentMood) +
-      (CAPTURE ? "&capture=1" : "");
-  }
-
-  moodButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () { setMood(btn.getAttribute("data-mood")); });
-  });
-
-  // The stage announces itself; drive any queued mood once it is up.
-  window.addEventListener("message", function (e) {
-    var d = e.data;
-    if (d && d.type === "flymascots" && d.ready) setMood(currentMood, true);
-  });
-
   /* ---------------- film ---------------- */
 
   var reel = document.getElementById("reel");
@@ -233,7 +208,7 @@
     });
     reel.addEventListener("pause", function () { playBtn.classList.remove("hidden"); });
     reel.addEventListener("click", function () {
-      if (!reel.paused) { reel.pause(); }
+      if (!reel.paused) reel.pause();
     });
   }
 
@@ -243,7 +218,7 @@
   if (shot) {
     var map = {
       hero: "#top", stage: "#demo", how: "#how", film: "#film",
-      proof: "#proof", install: "#install", moods: ".moods",
+      proof: "#proof", install: "#install", moods: "#moods",
       platforms: ".platforms", pipeline: ".pipeline", faq: ".faq"
     };
     var sel = map[shot] || (shot.charAt(0) === "#" ? shot : null);
@@ -251,33 +226,25 @@
       requestAnimationFrame(function () {
         var el = document.querySelector(sel);
         if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
-        window.scrollBy(0, -8); // clear the sticky nav
+        window.scrollBy(0, -8);
       });
     }
   }
-
-  var moodParam = q.get("mood");
-  if (moodParam) setMood(moodParam, true);
 
   /* ---------------- window.CAPTURE (deterministic hooks) ---------------- */
 
   window.CAPTURE = {
     ready: true,
 
-    // Pause every CSS transition/reveal AND the stage — two stills then
-    // match byte for byte.
     freeze: function (on) {
       frozen = on !== false;
       root.classList.toggle("is-capture", frozen);
       if (frozen) sendStage({ freeze: true, mood: currentMood });
     },
 
-    // Drive the mascot (site mood buttons + the stage inside the iframe).
     pose: function (mood) { setMood(String(mood || "idle"), true); },
     mood: function (mood) { setMood(String(mood || "idle"), true); },
 
-    // ?state= presets used by capture scripts.
-    //   theme=dark | mood=think | shot=film
     state: function (name) {
       String(name).split(/[,&]/).forEach(function (pair) {
         var kv = pair.split("=");
@@ -288,20 +255,16 @@
           var el = document.querySelector(v.charAt(0) === "#" ? v : "#" + v);
           if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
         }
-        if (k === "reveals") revealAll();
-        if (k === "counters") runCounters(false);
+        if (k === "reveals") anims.forEach(function (el) { el.classList.add("in"); });
       });
     },
 
     scroll: function (y) { window.scrollTo(0, Number(y) || 0); },
 
-    // Drive page time (reveals/counters resolve immediately; the mascot
-    // inside the stage has its own seek — it is a separate frame).
     seek: function (frame, fps) {
       var f = Number(frame) || 0;
       var rate = Number(fps) || 30;
-      revealAll();
-      runCounters(false);
+      anims.forEach(function (el) { el.classList.add("in"); });
       if (stage && stage.contentWindow) {
         stage.contentWindow.postMessage({ type: "flymascots", seek: f / rate }, "*");
       }
@@ -311,6 +274,5 @@
     time: function () { return performance.now() / 1000; }
   };
 
-  // Everything is in place — capture scripts may shoot now.
   window.__SITE_READY = true;
 })();

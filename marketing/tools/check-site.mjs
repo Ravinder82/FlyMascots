@@ -55,5 +55,24 @@ if bbox:
 await page.evaluate(() => window.CAPTURE.state('theme=dark&mood=working'));
 await new Promise(r => setTimeout(r, 1500));
 await page.screenshot({ path: '/tmp/mood-dark-working.png' });
+
+// 6. film plays (click the play button, expect playback)
+await page.evaluate(() => document.querySelector('#film').scrollIntoView());
+await page.click('#playBtn').catch(() => console.log('play click failed'));
+await new Promise(r => setTimeout(r, 1800));
+const playing = await page.evaluate(() => {
+  const v = document.getElementById('reel');
+  return { paused: v.paused, readyState: v.readyState, t: v.currentTime };
+});
+console.log('film after play click:', playing);
+
+// 7. mood loops present and loadable
+const loops = await page.evaluate(() =>
+  Array.from(document.querySelectorAll('.mood-loop')).map(v => ({
+    poster: !!v.poster, src: v.currentSrc || v.querySelector('source')?.src || null,
+  }))
+);
+console.log('mood loops:', loops.length, loops.map(l => l.poster ? 'poster' : 'no-poster').join(','));
+
 console.log('done');
 await browser.close();

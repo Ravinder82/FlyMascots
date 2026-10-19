@@ -4,31 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FlyMascots — give your project a mascot that feels alive</title>
-<meta name="description" content="An agent skill that takes a mascot from an idea, an image or a MascotForge export to a character that breathes, blinks and changes mood with your app — measured and verified before you ever see it. Five moods, five platforms, MIT.">
-<meta name="theme-color" content="#F6F1E7">
+<meta name="description" content="An agent skill that takes a mascot from an idea, an image or a MascotForge export to a character that breathes, blinks and changes mood with your app — measured and checked before you ever see it. Five moods, five platforms, MIT.">
+<meta name="theme-color" content="#F3F6F5">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FlyMascots — give your project a mascot that feels alive">
-<meta property="og:description" content="Five moods, one word, measured every run. An agent skill for a mascot that moves like it means it.">
+<meta property="og:description" content="Five moods, one word each, checked every run. A mascot that moves like it means it.">
 <meta property="og:image" content="assets/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FlyMascots — give your project a mascot that feels alive">
 <meta name="twitter:image" content="assets/og.png">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- ───────────────────────── nav ───────────────────────── -->
 <header class="nav" id="nav" data-capture="nav">
-  <a class="mark" href="#top"><span class="dot"></span><span class="word">FlyMascots</span></a>
+  <a class="mark" href="#top">
+    <img class="mark-icon" src="assets/icon.svg" width="34" height="34" alt="" aria-hidden="true">
+    <span class="word">FlyMascots</span>
+  </a>
   <nav class="nav-links" aria-label="Sections">
     <a href="#demo">Demo</a>
-    <a href="#how">How it works</a>
-    <a href="#proof">Proof</a>
+    <a href="#moods">Moods</a>
     <a href="#film">Film</a>
+    <a href="#proof">Proof</a>
   </nav>
   <div class="nav-actions">
     <button class="theme" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Theme">
@@ -42,106 +44,126 @@
 
 <!-- ───────────────────────── hero ───────────────────────── -->
 <section class="hero" id="top" data-capture="hero">
-  <p class="kicker reveal">Agent skill&nbsp;·&nbsp;MIT&nbsp;·&nbsp;v1.0.1</p>
-  <h1 class="reveal">Give your project a mascot<br>that feels <em>alive</em>.</h1>
-  <p class="lede reveal">It breathes, blinks and changes mood as your app changes
-    state. Five moods, one word to set them — measured and checked before you
-    ever see it.</p>
-  <div class="cta reveal">
-    <button class="cmd" type="button" data-copy="npx skills add Ravinder82/FlyMascots">
-      <code>npx skills add Ravinder82/FlyMascots</code>
-      <span class="copy-label">Copy</span>
-    </button>
-    <a class="ghost" href="#film">Watch the film<span class="arr">→</span></a>
+  <div class="hero-copy">
+    <h1 class="hero-anim">Give your project a mascot that feels alive.</h1>
+    <p class="lede hero-anim">It breathes, blinks and changes mood as your app
+      changes state — five moods, one word each, checked before you ever see it.</p>
+    <div class="cta hero-anim">
+      <button class="cmd" type="button" data-copy="npx skills add Ravinder82/FlyMascots">
+        <code>npx skills add Ravinder82/FlyMascots</code>
+        <span class="copy-label">Copy</span>
+      </button>
+      <a class="ghost" href="#film">Watch the film</a>
+    </div>
   </div>
-</section>
 
-<!-- ───────────────────── live stage (the product) ───────────────────── -->
-<section class="stage-wrap" id="demo" data-capture="stage">
-  <div class="stage-frame reveal">
-    <iframe id="stageFrame" data-src="assets/stage.html?mood=idle"
-      title="The real FlyMascots viewer — Axo in five moods, responding to clicks"
+  <div class="hero-stage hero-anim" id="demo" data-capture="stage">
+    <div class="spot" aria-hidden="true"></div>
+    <iframe id="stageFrame" data-src="assets/stage.html"
+      title="The real FlyMascots viewer — Axo, live in 3D, responding to the mood buttons"
       loading="eager" scrolling="no" allow="fullscreen"></iframe>
   </div>
 
-  <div class="stage-bar reveal">
-    <p class="mono-note">The actual viewer, running in this page — click a mood.</p>
+  <div class="hero-controls hero-anim">
     <div class="mood-buttons" role="group" aria-label="Set the mascot's mood">
       <button type="button" data-mood="idle" class="on" aria-pressed="true">idle</button>
       <button type="button" data-mood="working" aria-pressed="false">working</button>
       <button type="button" data-mood="think" aria-pressed="false">think</button>
       <button type="button" data-mood="celebrate" aria-pressed="false">celebrate</button>
       <button type="button" data-mood="sleep" aria-pressed="false">sleep</button>
+      <button type="button" class="boop-btn" id="boopBtn" title="Boop the mascot">boop</button>
     </div>
+    <p class="stage-note">The real viewer, live in 3D — pick a mood. Go on, boop him.</p>
   </div>
-
-  <p class="stage-caption reveal">Axo — the mascot built for DayPilot. It moves with
-    real weight — settles, overshoots, breathes.</p>
 </section>
 
-<!-- ───────────────────────── proof strip ───────────────────────── -->
+<!-- ───────────────────────── facts ───────────────────────── -->
 <section class="strip" data-capture="strip" aria-label="At a glance">
-  <div class="strip-item reveal"><b data-count="5">5</b><span>moods</span></div>
-  <div class="strip-item reveal"><b data-count="5">5</b><span>places it can live</span></div>
-  <div class="strip-item reveal"><b data-count="60">60</b><span>mood changes checked</span></div>
-  <div class="strip-item reveal"><b data-count="0">0</b><span>lines of art needed</span></div>
+  <div class="strip-item"><b>5</b><span>moods</span></div>
+  <div class="strip-item"><b>5</b><span>places it can live</span></div>
+  <div class="strip-item"><b>60</b><span>mood changes checked</span></div>
+  <div class="strip-item"><b>MIT</b><span>free, both skill and package</span></div>
 </section>
 
 <!-- ───────────────────────── how it works ───────────────────────── -->
 <section class="how" id="how" data-capture="how">
-  <p class="label reveal">How it works</p>
-  <h2 class="reveal">Three steps, and the third one is a word.</h2>
-
+  <h2>Three steps, and the third is a word.</h2>
   <ol class="steps">
-    <li class="step reveal">
-      <span class="num">01</span>
+    <li class="step">
+      <span class="num">1</span>
       <h3>Add the skill</h3>
       <p>It lives beside your coding agent, ready whenever you want a
         character in the product.</p>
       <code class="chip">npx skills add Ravinder82/FlyMascots</code>
     </li>
-    <li class="step reveal">
-      <span class="num">02</span>
+    <li class="step">
+      <span class="num">2</span>
       <h3>Bring a mascot</h3>
       <p>An idea in a sentence, an image you like, or a MascotForge export.
         The skill builds it into a real, jointed character.</p>
       <code class="chip">idea · image · export</code>
     </li>
-    <li class="step reveal">
-      <span class="num">03</span>
+    <li class="step">
+      <span class="num">3</span>
       <h3>Say the word</h3>
       <p>Your app sets one of five words — <b>idle, working, think,
-        celebrate, sleep</b> — and the mascot does the rest, in any of five
-        homes.</p>
+        celebrate, sleep</b> — and the mascot does the rest, on any of five
+        platforms.</p>
       <code class="chip">setMood("working")</code>
     </li>
   </ol>
 </section>
 
 <!-- ───────────────────────── moods ───────────────────────── -->
-<section class="moods" data-capture="moods">
-  <p class="label reveal">The five moods</p>
-  <h2 class="reveal">Five faces. One word each.</h2>
+<section class="moods" id="moods" data-capture="moods">
+  <h2>Five faces. One word each.</h2>
+  <p class="section-lede">Real footage of the character, caught mid-mood —
+    breathing, blinking, hopping, sleeping.</p>
 
   <div class="mood-grid">
-    <figure class="mood-card reveal">
-      <img src="assets/mood-idle.png" width="300" height="300" alt="The mascot resting, breathing" loading="lazy">
+    <figure class="mood-tile">
+      <video class="mood-loop" muted loop playsinline preload="none"
+        poster="assets/mood-idle-poster.png" width="560" height="700"
+        aria-label="The mascot resting, breathing and blinking">
+        <source src="media/moods/idle.webm" type="video/webm">
+        <source src="media/moods/idle.mp4" type="video/mp4">
+      </video>
       <figcaption><b>idle</b><span>resting, breathing, blinking</span></figcaption>
     </figure>
-    <figure class="mood-card reveal">
-      <img src="assets/mood-working.png" width="300" height="300" alt="The mascot with goggles pulled down, working" loading="lazy">
+    <figure class="mood-tile">
+      <video class="mood-loop" muted loop playsinline preload="none"
+        poster="assets/mood-working-poster.png" width="560" height="700"
+        aria-label="The mascot pulling its goggles down to work">
+        <source src="media/moods/working.webm" type="video/webm">
+        <source src="media/moods/working.mp4" type="video/mp4">
+      </video>
       <figcaption><b>working</b><span>goggles down, head down</span></figcaption>
     </figure>
-    <figure class="mood-card reveal">
-      <img src="assets/mood-think.png" width="300" height="300" alt="The mascot thinking, chin in hand" loading="lazy">
+    <figure class="mood-tile">
+      <video class="mood-loop" muted loop playsinline preload="none"
+        poster="assets/mood-think-poster.png" width="560" height="700"
+        aria-label="The mascot thinking, chin in hand">
+        <source src="media/moods/think.webm" type="video/webm">
+        <source src="media/moods/think.mp4" type="video/mp4">
+      </video>
       <figcaption><b>think</b><span>chin in hand, thinking it over</span></figcaption>
     </figure>
-    <figure class="mood-card reveal">
-      <img src="assets/mood-celebrate.png" width="300" height="300" alt="The mascot celebrating with a hop and a wave" loading="lazy">
+    <figure class="mood-tile">
+      <video class="mood-loop" muted loop playsinline preload="none"
+        poster="assets/mood-celebrate-poster.png" width="560" height="700"
+        aria-label="The mascot celebrating with a hop and a wave">
+        <source src="media/moods/celebrate.webm" type="video/webm">
+        <source src="media/moods/celebrate.mp4" type="video/mp4">
+      </video>
       <figcaption><b>celebrate</b><span>a hop and a wave</span></figcaption>
     </figure>
-    <figure class="mood-card reveal">
-      <img src="assets/mood-sleep.png" width="300" height="300" alt="The mascot asleep, eyes closed" loading="lazy">
+    <figure class="mood-tile">
+      <video class="mood-loop" muted loop playsinline preload="none"
+        poster="assets/mood-sleep-poster.png" width="560" height="700"
+        aria-label="The mascot asleep, eyes closed, breathing slowly">
+        <source src="media/moods/sleep.webm" type="video/webm">
+        <source src="media/moods/sleep.mp4" type="video/mp4">
+      </video>
       <figcaption><b>sleep</b><span>eyes closed, slow breath</span></figcaption>
     </figure>
   </div>
@@ -149,10 +171,8 @@
 
 <!-- ───────────────────────── film ───────────────────────── -->
 <section class="film" id="film" data-capture="film">
-  <p class="label reveal">The film</p>
-  <h2 class="reveal">The whole thing, in twenty-four seconds.</h2>
-
-  <div class="film-frame reveal">
+  <h2>The whole thing, in twenty-four seconds.</h2>
+  <div class="film-frame">
     <video id="reel" playsinline muted loop preload="metadata"
       poster="assets/reel-poster.png" width="1600" height="900"
       aria-label="Twenty-four second launch film — the mascot through all five moods">
@@ -163,55 +183,50 @@
       <span class="play-txt">Play · 24 s</span>
     </button>
   </div>
-
-  <p class="film-foot reveal">It loops. No sound, nothing to turn down.
-    <a href="https://github.com/Ravinder82/FlyMascots/tree/main/marketing/renders">The 34-second story cut and vertical versions live in the repo →</a></p>
+  <p class="film-foot">It loops, and it is silent — nothing to turn down.
+    <a href="https://github.com/Ravinder82/FlyMascots/tree/main/marketing/renders">The 34-second story cut and vertical versions live in the repo.</a></p>
 </section>
 
 <!-- ───────────────────────── platforms ───────────────────────── -->
 <section class="platforms" data-capture="platforms">
-  <p class="label reveal">Where it lives</p>
-  <h2 class="reveal">It ships where your app lives.</h2>
+  <h2>It ships where your app lives.</h2>
   <ul class="homes">
-    <li class="reveal"><b>Website</b><span>Three.js, in the page — the stage above</span></li>
-    <li class="reveal"><b>macOS &amp; iOS</b><span>SceneKit — how Axo ships</span></li>
-    <li class="reveal"><b>React Native</b><span>Expo apps, same five words</span></li>
-    <li class="reveal"><b>Static pages</b><span>blogs and docs, one file</span></li>
-    <li class="reveal"><b>Electron</b><span>desktop apps, same engine</span></li>
+    <li><b>Website</b><span>Three.js, in the page — the hero above</span></li>
+    <li><b>macOS &amp; iOS</b><span>SceneKit</span></li>
+    <li><b>React Native</b><span>Expo apps, same five words</span></li>
+    <li><b>Static pages</b><span>blogs and docs, one file</span></li>
+    <li><b>Electron</b><span>desktop apps, same engine</span></li>
   </ul>
 </section>
 
-<!-- ───────────────────────── proof (dark) ───────────────────────── -->
+<!-- ───────────────────────── proof ───────────────────────── -->
 <section class="proof" id="proof" data-capture="proof">
-  <p class="label reveal">Verified every run</p>
-  <h2 class="reveal">It checks itself before you see it.</h2>
-  <p class="proof-lede reveal">Not “looks right to me.” Every run ends with the
-    numbers below asserted, and every one of sixty mood changes checked for
-    a body that holds together.</p>
+  <h2>It checks itself before you see it.</h2>
+  <p class="proof-lede">Not “looks right to me.” Every run ends with the
+    numbers below asserted, and all sixty mood changes checked for a body
+    that holds together.</p>
 
   <div class="proof-grid">
-    <div class="proof-cell reveal"><b>0.440</b><span>goggle drop — the working pose</span></div>
-    <div class="proof-cell reveal"><b>−0.780</b><span>arm angle — the thinking pose</span></div>
-    <div class="proof-cell reveal"><b>0.080</b><span>eye height — the sleeping pose</span></div>
-    <div class="proof-cell reveal"><b>0.167</b><span>hop lift — the celebrating pose</span></div>
-    <div class="proof-cell reveal"><b>60</b><span>rapid mood changes, all finite, none vanish</span></div>
-    <div class="proof-cell reveal"><b>1</b><span>process diagram left behind, open it and follow the run</span></div>
+    <div class="proof-cell"><b>0.440</b><span>goggle drop — the working pose</span></div>
+    <div class="proof-cell"><b>−0.780</b><span>arm angle — the thinking pose</span></div>
+    <div class="proof-cell"><b>0.080</b><span>eye height — the sleeping pose</span></div>
+    <div class="proof-cell"><b>0.167</b><span>hop lift — the celebrating pose</span></div>
+    <div class="proof-cell"><b>60</b><span>rapid mood changes, all finite, none vanish</span></div>
+    <div class="proof-cell"><b>1</b><span>process diagram left behind — open it and follow the run</span></div>
   </div>
 
-  <p class="proof-src reveal">Read the numbers yourself:
+  <p class="proof-src">Read the numbers yourself:
     <code>skills/flymascots/references/verification.md</code></p>
 </section>
 
 <!-- ───────────────────────── pipeline ───────────────────────── -->
 <section class="pipeline" data-capture="pipeline">
-  <p class="label reveal">Every run</p>
-  <h2 class="reveal">It leaves a diagram behind.</h2>
-  <p class="lede reveal">Open it in a browser and follow what the run did, step
-    by step — the same page you are on right now can be that diagram.</p>
-
-  <picture class="pipe-frame reveal">
+  <h2>It leaves a diagram behind.</h2>
+  <p class="section-lede">Open it in a browser and follow what the run did,
+    step by step — the same kind of page you are on right now.</p>
+  <picture class="pipe-frame">
     <source media="(prefers-color-scheme: dark)" srcset="assets/pipeline-dark.png">
-    <img src="assets/pipeline-light.png" width="2048" height="1152"
+    <img src="assets/pipeline-light.png" width="1912" height="1824"
       alt="The mascot pipeline diagram: idea, rig, animate, mood sync — each run leaves one behind"
       loading="lazy">
   </picture>
@@ -219,10 +234,8 @@
 
 <!-- ───────────────────────── install ───────────────────────── -->
 <section class="install" id="install" data-capture="install">
-  <p class="label reveal">Install</p>
-  <h2 class="reveal">One command, then say hello.</h2>
-
-  <div class="term reveal">
+  <h2>One command, then say hello.</h2>
+  <div class="term">
     <div class="term-row">
       <span class="term-prompt">›</span>
       <code>npx skills add Ravinder82/FlyMascots</code>
@@ -234,59 +247,61 @@
       <button class="term-copy" type="button" data-copy="npm i flymascots">Copy</button>
     </div>
     <p class="term-note">MIT · v1.0.1 · the package carries the skill, the
-      pipeline diagram and this README</p>
+      pipeline diagram and the README</p>
   </div>
 </section>
 
 <!-- ───────────────────────── faq ───────────────────────── -->
 <section class="faq" data-capture="faq">
-  <p class="label reveal">Questions</p>
-  <h2 class="reveal">Fair questions, straight answers.</h2>
-
-  <details class="qa reveal">
+  <h2>Fair questions, straight answers.</h2>
+  <details class="qa">
     <summary>Is the mascot above a video?</summary>
     <p>No — it is the real viewer running in this page, in 3D, answering your
-      clicks. The only video on this page is the twenty-four second film.</p>
+      clicks. The five faces below are real footage of that same viewer, and
+      the only proper video is the twenty-four second film.</p>
   </details>
-  <details class="qa reveal">
+  <details class="qa">
     <summary>Do I have to draw anything?</summary>
     <p>No. Start from a sentence, an image you already have, or a MascotForge
       export. The skill builds the character, the poses and the motion.</p>
   </details>
-  <details class="qa reveal">
+  <details class="qa">
     <summary>What does it cost?</summary>
     <p>Nothing. MIT, both the skill and the package — read it, change it, ship
       it.</p>
   </details>
-  <details class="qa reveal">
+  <details class="qa">
     <summary>How do I know it actually works?</summary>
     <p>Every run asserts the pose numbers above, checks all sixty mood
       changes for a body that holds together, and leaves you a diagram of
       exactly what happened.</p>
   </details>
-  <details class="qa reveal">
+  <details class="qa">
     <summary>What is the mascot on this page?</summary>
-    <p>Axo — built with this skill for DayPilot, a macOS app. Everything you
-      see here comes from that build: the stills, the film, the numbers.</p>
+    <p>Axo — a demo character built with the skill itself. Every loop, frame
+      and number on this page comes from that build; your mascot will be
+      yours.</p>
   </details>
 </section>
 
 </main>
 
-<!-- ───────────────────────── footer ───────────────────────── -->
 <footer class="footer" data-capture="footer">
   <div class="foot-top">
-    <a class="mark" href="#top"><span class="dot"></span><span class="word">FlyMascots</span></a>
+    <a class="mark" href="#top">
+      <img class="mark-icon" src="assets/icon.svg" width="30" height="30" alt="" aria-hidden="true">
+      <span class="word">FlyMascots</span>
+    </a>
     <nav class="foot-links" aria-label="Elsewhere">
       <a href="https://github.com/Ravinder82/FlyMascots">GitHub</a>
       <a href="https://www.npmjs.com/package/flymascots">npm</a>
       <a href="https://github.com/Ravinder82/FlyMascots/blob/main/skills/flymascots/SKILL.md">The skill</a>
-      <a href="https://github.com/Ravinder82/FlyMascots/blob/main/marketing/LAUNCH-PLAN.md">Launch plan</a>
     </nav>
   </div>
-  <p class="foot-note">MIT · Ravinder Poonia · Axo built for DayPilot.<br>
-    <span>Every image and frame on this page was captured from this product —
-    no mockups, nothing drawn by hand.</span></p>
+  <p class="foot-note">MIT · Ravinder Poonia. The demo character, Axo, was
+    built with the skill itself.<br>
+    <span>Every image, loop and frame on this page was captured from the real
+    product — nothing here is a mockup.</span></p>
 </footer>
 
 <script src="main.js"></script>
