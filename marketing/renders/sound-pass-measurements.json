@@ -1,0 +1,86 @@
+{
+  "flymascots-reel-16x9.mp4": {
+    "video_duration_s": 24.0,
+    "before": {
+      "integrated_lufs": -16.7,
+      "lra_lu": 1.6,
+      "true_peak_dbfs": -2.1
+    },
+    "after": {
+      "integrated_lufs": -16.5,
+      "lra_lu": 1.2,
+      "true_peak_dbfs": -4.0
+    },
+    "loudnorm_analysis": {
+      "input_i": "-16.64",
+      "input_tp": "-2.08",
+      "input_lra": "1.40",
+      "input_thresh": "-26.64",
+      "target_offset": "0.78"
+    },
+    "pass": true
+  },
+  "flymascots-reel-9x16.mp4": {
+    "video_duration_s": 24.0,
+    "before": {
+      "integrated_lufs": -16.7,
+      "lra_lu": 1.6,
+      "true_peak_dbfs": -2.1
+    },
+    "after": {
+      "integrated_lufs": -16.5,
+      "lra_lu": 1.2,
+      "true_peak_dbfs": -4.0
+    },
+    "loudnorm_analysis": {
+      "input_i": "-16.64",
+      "input_tp": "-2.08",
+      "input_lra": "1.40",
+      "input_thresh": "-26.64",
+      "target_offset": "0.78"
+    },
+    "pass": true
+  },
+  "flymascots-story-16x9.mp4": {
+    "video_duration_s": 34.133333,
+    "before": {
+      "integrated_lufs": -16.3,
+      "lra_lu": 1.9,
+      "true_peak_dbfs": -1.3
+    },
+    "after": {
+      "integrated_lufs": -16.4,
+      "lra_lu": 1.5,
+      "true_peak_dbfs": -4.6
+    },
+    "loudnorm_analysis": {
+      "input_i": "-16.33",
+      "input_tp": "-1.33",
+      "input_lra": "1.70",
+      "input_thresh": "-26.33",
+      "target_offset": "0.54"
+    },
+    "pass": true
+  },
+  "flymascots-story-9x16.mp4": {
+    "video_duration_s": 34.133333,
+    "before": {
+      "integrated_lufs": -16.3,
+      "lra_lu": 1.9,
+      "true_peak_dbfs": -1.3
+    },
+    "after": {
+      "integrated_lufs": -16.4,
+      "lra_lu": 1.5,
+      "true_peak_dbfs": -4.6
+    },
+    "loudnorm_analysis": {
+      "input_i": "-16.33",
+      "input_tp": "-1.33",
+      "input_lra": "1.70",
+      "input_thresh": "-26.33",
+      "target_offset": "0.54"
+    },
+    "pass": true
+  }
+}

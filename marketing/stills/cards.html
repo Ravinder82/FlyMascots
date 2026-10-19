@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FlyMascots — launch cards</title>
+<style>
+  :root {
+    --paper: #f6f1e7;
+    --snow: #fffefb;
+    --ink: #15241f;
+    --ink-soft: rgba(21, 36, 31, .62);
+    --ink-faint: rgba(21, 36, 31, .38);
+    --mint: #2ab5a2;
+    --mint-deep: #0f7d6f;
+    --hairline: rgba(21, 36, 31, .12);
+    --font: -apple-system, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #101010; }
+  body { width: 100vw; height: 100vh; overflow: hidden; }
+  .card {
+    display: none;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(90% 74% at 50% 24%, #fffefb 0%, var(--paper) 58%, #eee5d4 100%);
+    font-family: var(--font);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .card.on { display: block; }
+
+  .kicker {
+    font-family: var(--mono);
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: .24em;
+    color: var(--mint-deep);
+  }
+  .mono { font-family: var(--mono); letter-spacing: .06em; color: var(--ink-faint); }
+  h1 { font-weight: 600; letter-spacing: -.022em; line-height: 1.04; }
+  .sub { color: var(--ink-soft); font-weight: 500; }
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 17px;
+    color: var(--ink-soft);
+    background: rgba(21, 36, 31, .05);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 11px 22px 12px;
+  }
+  .mascot { display: block; object-fit: contain; }
+  .mask {
+    -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent 99%);
+    mask-image: radial-gradient(closest-side, #000 60%, transparent 99%);
+  }
+  .mark { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: -.01em; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--mint); }
+
+  /* ---------- launch-16x9 ---------- */
+  #launch-16x9 { width: 1600px; height: 900px; }
+  #launch-16x9 .img {
+    position: absolute; inset: 0 0 0 auto; width: 980px; height: 900px;
+    background: url("media/hero-card.png") center 52% / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  }
+  #launch-16x9 .scrim {
+    position: absolute; inset: 0; width: 780px;
+    background: linear-gradient(90deg, var(--paper) 0%, var(--paper) 42%, rgba(246, 241, 231, 0) 100%);
+  }
+  #launch-16x9 .text { position: absolute; left: 96px; top: 0; width: 620px; height: 900px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+  #launch-16x9 h1 { font-size: 62px; }
+  #launch-16x9 .sub { font-size: 21px; }
+
+  /* ---------- launch-square ---------- */
+  #launch-square { width: 1080px; height: 1080px; background: #efe7d7; }
+  #launch-square .img {
+    position: absolute; inset: 0;
+    background: url("media/2x/mood-celebrate.png") center / cover no-repeat,
+      radial-gradient(90% 74% at 50% 24%, #fffefb 0%, var(--paper) 58%, #eee5d4 100%);
+  }
+  #launch-square .band {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 320px;
+    background: linear-gradient(180deg, rgba(246, 241, 231, 0) 0%, rgba(246, 241, 231, .92) 46%, var(--paper) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; padding-bottom: 64px;
+  }
+  #launch-square .word { font-size: 72px; font-weight: 600; letter-spacing: -.02em; }
+  #launch-square .tag { font-size: 26px; color: var(--ink-soft); font-weight: 500; }
+  #launch-square .mono { font-size: 16px; }
+
+  /* ---------- launch-portrait ---------- */
+  #launch-portrait { width: 1080px; height: 1350px; }
+  #launch-portrait .img {
+    position: absolute; inset: 0 0 auto 0; height: 1010px;
+    background: url("media/2x/mood-working.png") center 30% / cover no-repeat;
+  }
+  #launch-portrait .band {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 340px; background: var(--paper);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px; text-align: center;
+  }
+  #launch-portrait h1 { font-size: 66px; }
+  #launch-portrait .mono { font-size: 17px; }
+
+  /* ---------- moods-16x9 ---------- */
+  #moods-16x9 { width: 1600px; height: 900px; }
+  #moods-16x9 .wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 44px; }
+  #moods-16x9 h1 { font-size: 64px; text-align: center; }
+  #moods-16x9 .row { display: flex; gap: 40px; align-items: flex-end; }
+  #moods-16x9 .m { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  #moods-16x9 .m img { width: 232px; height: 232px; }
+  #moods-16x9 .m span { font-family: var(--mono); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  /* ---------- pipeline-16x9 ---------- */
+  #pipeline-16x9 { width: 1600px; height: 900px; }
+  #pipeline-16x9 .text { position: absolute; left: 100px; top: 0; width: 660px; height: 900px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+  #pipeline-16x9 h1 { font-size: 58px; }
+  #pipeline-16x9 .mono { font-size: 17px; }
+  #pipeline-16x9 .frame {
+    position: absolute; right: 110px; top: 122px; width: 690px; height: 656px;
+    border-radius: 28px; overflow: hidden; background: var(--snow);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 60px 120px -50px rgba(21, 36, 31, .35);
+  }
+  #pipeline-16x9 .frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- platforms-square ---------- */
+  #platforms-square { width: 1080px; height: 1080px; }
+  #platforms-square .wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 0 110px; text-align: center; }
+  #platforms-square h1 { font-size: 58px; }
+  #platforms-square .mascot { width: 330px; height: 330px; margin: -14px 0 -10px; }
+  #platforms-square .chips { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  #platforms-square .mono { font-size: 16px; }
+
+  /* ---------- og-card ---------- */
+  #og-card { width: 1200px; height: 630px; }
+  #og-card .wrap { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 70px; gap: 40px; }
+  #og-card .text { width: 700px; display: flex; flex-direction: column; gap: 24px; }
+  #og-card h1 { font-size: 44px; }
+  #og-card .chips { display: flex; gap: 12px; flex-wrap: wrap; }
+  #og-card .chip { font-size: 15px; padding: 9px 18px 10px; }
+  #og-card .mascot { width: 380px; height: 380px; margin-left: auto; margin-top: -20px; }
+
+  /* ---------- yt thumbs ---------- */
+  #yt-thumb-a, #yt-thumb-b { width: 1280px; height: 720px; }
+  #yt-thumb-a .mascot { position: absolute; right: 60px; bottom: -30px; width: 640px; height: 640px; }
+  #yt-thumb-a .text { position: absolute; left: 84px; top: 168px; display: flex; flex-direction: column; gap: 30px; }
+  #yt-thumb-a h1 { font-size: 116px; }
+  #yt-thumb-a .mark { font-size: 30px; }
+  #yt-thumb-a .mono { font-size: 20px; }
+  #yt-thumb-b .text { position: absolute; left: 84px; top: 110px; display: flex; flex-direction: column; gap: 22px; }
+  #yt-thumb-b h1 { font-size: 88px; }
+  #yt-thumb-b .row { position: absolute; left: 84px; right: 84px; bottom: 92px; display: flex; justify-content: space-between; align-items: flex-end; }
+  #yt-thumb-b .m { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  #yt-thumb-b .m img { width: 190px; height: 190px; }
+  #yt-thumb-b .m span { font-family: var(--mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  /* ---------- reel-cover ---------- */
+  #reel-cover { width: 1080px; height: 1920px; }
+  #reel-cover .img {
+    position: absolute; inset: 0 0 auto 0; height: 1180px;
+    background: url("media/2x/mood-celebrate.png") center 34% / cover no-repeat;
+  }
+  #reel-cover .band {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 740px; background: var(--paper);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; text-align: center;
+  }
+  #reel-cover .word { font-size: 92px; font-weight: 600; letter-spacing: -.022em; }
+  #reel-cover .tag { font-size: 32px; color: var(--ink-soft); font-weight: 500; }
+  #reel-cover .mono { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<section class="card" id="launch-16x9">
+  <div class="img"></div>
+  <div class="scrim"></div>
+  <div class="text">
+    <div class="kicker">FlyMascots · agent skill</div>
+    <h1>Give your project a mascot that feels alive.</h1>
+    <div class="sub">Springs, not lerps. Five moods, verified every run.</div>
+    <div><span class="chip">npx skills add Ravinder82/FlyMascots</span></div>
+  </div>
+</section>
+
+<section class="card" id="launch-square">
+  <div class="img"></div>
+  <div class="band">
+    <div class="mark"><span class="dot"></span><span class="word">FlyMascots</span></div>
+    <div class="tag">Mascots that feel alive.</div>
+    <div class="mono">npm i flymascots · MIT</div>
+  </div>
+</section>
+
+<section class="card" id="launch-portrait">
+  <div class="img"></div>
+  <div class="band">
+    <div class="kicker">Agent skill</div>
+    <h1>Five moods. One&nbsp;enum.</h1>
+    <div class="mono">idle · working · think · celebrate · sleep</div>
+  </div>
+</section>
+
+<section class="card" id="moods-16x9">
+  <div class="wrap">
+    <div class="kicker">Moods</div>
+    <h1>Five moods — springs, not lerps.</h1>
+    <div class="row">
+      <div class="m"><img class="mascot mask" src="media/2x/mood-idle.png" alt=""><span>idle</span></div>
+      <div class="m"><img class="mascot mask" src="media/2x/mood-working.png" alt=""><span>working</span></div>
+      <div class="m"><img class="mascot mask" src="media/2x/mood-think.png" alt=""><span>think</span></div>
+      <div class="m"><img class="mascot mask" src="media/2x/mood-celebrate.png" alt=""><span>celebrate</span></div>
+      <div class="m"><img class="mascot mask" src="media/2x/mood-sleep.png" alt=""><span>sleep</span></div>
+    </div>
+    <div class="mono" style="font-size:16px">asserted numerically every run</div>
+  </div>
+</section>
+
+<section class="card" id="pipeline-16x9">
+  <div class="text">
+    <div class="kicker">Every run</div>
+    <h1>It leaves a process diagram behind.</h1>
+    <div class="mono">open it · follow the run, step by step</div>
+  </div>
+  <div class="frame"><img src="media/pipeline-light.png" alt="Mascot pipeline diagram"></div>
+</section>
+
+<section class="card" id="platforms-square">
+  <div class="wrap">
+    <div class="kicker">One mascot — five homes</div>
+    <h1>It ships where your app lives.</h1>
+    <img class="mascot mask" src="media/2x/mood-idle.png" alt="">
+    <div class="chips">
+      <span class="chip">Website</span><span class="chip">macOS</span><span class="chip">iOS</span><span class="chip">React&nbsp;Native</span><span class="chip">Electron</span>
+    </div>
+    <div class="mono">one engine · five adapters</div>
+  </div>
+</section>
+
+<section class="card" id="og-card">
+  <div class="wrap">
+    <div class="text">
+      <div class="mark" style="font-size:34px"><span class="dot"></span>FlyMascots</div>
+      <h1>Give your project a mascot that feels alive.</h1>
+      <div class="chips">
+        <span class="chip">5 platforms</span><span class="chip">verified every run</span><span class="chip">MIT</span>
+      </div>
+    </div>
+    <img class="mascot mask" src="media/2x/mood-working.png" alt="">
+  </div>
+</section>
+
+<section class="card" id="yt-thumb-a">
+  <div class="text">
+    <div class="mark" style="font-size:26px"><span class="dot" style="width:16px;height:16px"></span>FlyMascots</div>
+    <h1>Add a&nbsp;mascot.</h1>
+    <div class="mono">agent skill · 5 platforms · MIT</div>
+  </div>
+  <img class="mascot mask" src="media/2x/mood-celebrate.png" alt="">
+</section>
+
+<section class="card" id="yt-thumb-b">
+  <div class="text">
+    <div class="mark" style="font-size:26px"><span class="dot" style="width:16px;height:16px"></span>FlyMascots</div>
+    <h1>5 moods. One enum.</h1>
+  </div>
+  <div class="row">
+    <div class="m"><img class="mascot mask" src="media/2x/mood-idle.png" alt=""><span>idle</span></div>
+    <div class="m"><img class="mascot mask" src="media/2x/mood-working.png" alt=""><span>working</span></div>
+    <div class="m"><img class="mascot mask" src="media/2x/mood-think.png" alt=""><span>think</span></div>
+    <div class="m"><img class="mascot mask" src="media/2x/mood-celebrate.png" alt=""><span>celebrate</span></div>
+    <div class="m"><img class="mascot mask" src="media/2x/mood-sleep.png" alt=""><span>sleep</span></div>
+  </div>
+</section>
+
+<section class="card" id="reel-cover">
+  <div class="img"></div>
+  <div class="band">
+    <div class="mark" style="font-size:38px"><span class="dot" style="width:16px;height:16px"></span><span class="word">FlyMascots</span></div>
+    <div class="tag">Mascots that feel alive.</div>
+    <div class="mono">the launch reel · 24 s</div>
+  </div>
+</section>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const card = params.get('card') || document.querySelector('.card').id;
+  const el = document.getElementById(card);
+  if (!el) throw new Error('unknown card: ' + card);
+  el.classList.add('on');
+  document.title = card;
+  // size the page to the card so --window-size screenshots are exact
+  const w = parseInt(getComputedStyle(el).width, 10);
+  const h = parseInt(getComputedStyle(el).height, 10);
+  el.style.width = w + 'px'; el.style.height = h + 'px';
+  requestAnimationFrame(() => { document.body.style.width = w + 'px'; document.body.style.height = h + 'px'; });
+</script>
+</body>
+</html>

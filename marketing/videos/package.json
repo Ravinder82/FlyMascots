@@ -1,0 +1,19 @@
+{
+  "name": "flymascots-films",
+  "private": true,
+  "type": "module",
+  "description": "Launch films for FlyMascots — Remotion compositions. node_modules is a symlink to a local Remotion 4 install to save disk; reinstall with `npm i remotion@4.0.474 @remotion/cli@4.0.474 react@19 react-dom@19` on a fresh machine.",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:reel-wide": "remotion render src/index.ts Reel-Wide ../renders/flymascots-reel-16x9.mp4 --crf=18",
+    "render:reel-vertical": "remotion render src/index.ts Reel-Vertical ../renders/flymascots-reel-9x16.mp4 --crf=18",
+    "render:story-wide": "remotion render src/index.ts Story-Wide ../renders/flymascots-story-16x9.mp4 --crf=18",
+    "render:story-vertical": "remotion render src/index.ts Story-Vertical ../renders/flymascots-story-9x16.mp4 --crf=18"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.474",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.474"
+  }
+}

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Axo — FlyMascots stage</title>
+<style>
+  :root {
+    --paper: #f3eee5;
+    --stage-top: #fffdf8;
+    --stage-bottom: #ece4d5;
+    --ink: #14231f;
+    --ink-soft: rgba(20, 35, 31, 0.62);
+    --ink-faint: rgba(20, 35, 31, 0.36);
+    --line: rgba(20, 35, 31, 0.10);
+    --mint: #2ab5a2;
+    --mint-deep: #0f7d6f;
+    --pill: rgba(255, 255, 255, 0.58);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body {
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 55%),
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .shell {
+    width: min(1120px, 94vw);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .stage-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10.2;
+    border-radius: 34px;
+    overflow: hidden;
+    background:
+      radial-gradient(90% 78% at 50% 24%, #fffefb 0%, #fbf7ee 46%, #efe6d6 100%);
+    border: 1px solid rgba(20, 35, 31, 0.09);
+    box-shadow:
+      0 70px 120px -55px rgba(30, 46, 40, 0.42),
+      0 18px 46px -28px rgba(30, 46, 40, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  }
+
+  .stage-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(130% 105% at 50% 46%, rgba(255, 255, 255, 0) 62%, rgba(92, 74, 48, 0.055) 100%);
+  }
+
+  .stage-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  .stage-meta {
+    position: absolute;
+    top: 26px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.24em;
+    color: rgba(20, 35, 31, 0.72);
+  }
+
+  .wordmark .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--mint);
+    box-shadow: 0 0 0 4px rgba(42, 181, 162, 0.13);
+  }
+
+  .stage-sub {
+    font-size: 10px;
+    font-weight: 550;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .readout {
+    position: absolute;
+    left: 30px;
+    bottom: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(20, 35, 31, 0.42);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .readout b {
+    font-weight: 600;
+    color: rgba(20, 35, 31, 0.68);
+  }
+
+  .mood-tag {
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(20, 35, 31, 0.46);
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+
+  .mood-tag .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--mint);
+    animation: breathe 3.6s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.35; transform: scale(0.86); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+  }
+
+  .mood-pill {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--pill);
+    color: var(--ink-soft);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 550;
+    letter-spacing: 0.01em;
+    padding: 10px 17px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .mood-pill:hover {
+    border-color: rgba(20, 35, 31, 0.22);
+    color: var(--ink);
+  }
+
+  .mood-pill:active { transform: scale(0.97); }
+
+  .mood-pill[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #f8f4ea;
+    box-shadow: 0 10px 24px -12px rgba(20, 35, 31, 0.55);
+  }
+
+  .mood-pill:focus-visible {
+    outline: 2px solid var(--mint-deep);
+    outline-offset: 2px;
+  }
+
+  .boop {
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+
+  .boop .spark {
+    font-size: 14px;
+    line-height: 0;
+    color: var(--mint-deep);
+    transform: translateY(-1px);
+  }
+
+  .boop:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .hint {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: -6px;
+  }
+
+  body.is-capture .controls,
+  body.is-capture .hint { visibility: hidden; }
+
+  body.is-bare .stage-meta,
+  body.is-bare .readout,
+  body.is-bare .mood-tag,
+  body.is-bare .controls,
+  body.is-bare .hint { display: none; }
+
+  body.is-bare { background: transparent; }
+
+  body.is-bare .shell { width: 100vw; height: 100vh; gap: 0; }
+
+  body.is-bare .stage-card {
+    aspect-ratio: auto;
+    height: 100vh;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    background: radial-gradient(90% 78% at 50% 42%, #fffefb 0%, #fbf7ee 46%, #efe6d6 100%);
+  }
+
+  body.is-transparent,
+  body.is-transparent .stage-card,
+  body.is-transparent .stage-card::after { background: transparent !important; }
+
+  @media (max-width: 720px) {
+    .shell { width: 100vw; gap: 12px; }
+    .stage-card { border-radius: 22px; }
+    .stage-meta { top: 16px; left: 18px; right: 18px; }
+    .stage-sub { display: none; }
+    .readout, .mood-tag { display: none; }
+    .mood-pill { font-size: 12px; padding: 8px 13px 9px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mood-tag .pulse { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <section class="stage-card" aria-label="Axo mascot stage">
+      <canvas id="stage" class="stage-canvas"></canvas>
+      <div class="stage-meta">
+        <span class="wordmark"><span class="dot"></span>AXO</span>
+        <span class="stage-sub">Cyber Axolotl Synthesizer · 1:1 export</span>
+      </div>
+      <div class="readout" id="readout"><b>mood</b> idle · <b>breath</b> 2.0 · <b>springs</b> k70/d11</div>
+      <div class="mood-tag"><span class="pulse"></span><span id="mood-tag-label">idle</span></div>
+    </section>
+
+    <nav class="controls" aria-label="Mascot moods">
+      <button class="mood-pill" data-mood="idle" aria-pressed="true">Idle</button>
+      <button class="mood-pill" data-mood="working" aria-pressed="false">Working</button>
+      <button class="mood-pill" data-mood="think" aria-pressed="false">Thinking</button>
+      <button class="mood-pill" data-mood="celebrate" aria-pressed="false">Celebrate</button>
+      <button class="mood-pill" data-mood="sleep" aria-pressed="false">Sleeping</button>
+      <button class="boop" id="boop" title="Boop the mascot"><span class="spark">✦</span>Boop</button>
+    </nav>
+    <p class="hint">Click the mascot to boop · keys 1–5 switch moods</p>
+  </main>
+
+  <!--BUNDLE-->
+</body>
+</html>

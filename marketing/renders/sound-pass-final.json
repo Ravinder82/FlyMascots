@@ -1,0 +1,34 @@
+{
+  "flymascots-reel-16x9": {
+    "video_duration_s": 24.0,
+    "final": {
+      "I": -16.4,
+      "LRA": 1.2,
+      "TP": -4.7
+    }
+  },
+  "flymascots-reel-9x16": {
+    "video_duration_s": 24.0,
+    "final": {
+      "I": -16.4,
+      "LRA": 1.2,
+      "TP": -4.7
+    }
+  },
+  "flymascots-story-16x9": {
+    "video_duration_s": 34.133333,
+    "final": {
+      "I": -16.3,
+      "LRA": 1.3,
+      "TP": -4.5
+    }
+  },
+  "flymascots-story-9x16": {
+    "video_duration_s": 34.133333,
+    "final": {
+      "I": -16.3,
+      "LRA": 1.3,
+      "TP": -4.5
+    }
+  }
+}

@@ -1,3 +1,10 @@
 node_modules/
 *.tgz
 .DS_Store
+
+# generated film inputs (frame sequences + copies of music/sfx/diagram)
+marketing/videos/public/
+marketing/videos/out/
+
+# the remotion install is a symlink on this machine
+marketing/videos/node_modules
