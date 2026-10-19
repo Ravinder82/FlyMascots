@@ -1,4 +1,4 @@
-# Launch plan — flymascots v1.0.0
+# Launch plan — flymascots v1.0.1
 
 Four venues, in order. Each block: what to post, which file to attach, and the
 exact copy (all copy lives in `copy/`, all assets are generated — nothing here
@@ -16,7 +16,7 @@ with the film, land on the harness.
 | --- | --- |
 | Repo description + homepage + topics (`agent-skills` `claude-skills` `ai-agents` `mascot` `threejs` `scenekit` `spring-physics` `character-animation`) | done 2026-10-19 |
 | Tag `v1.0.0` (points at the first npm release) | done 2026-10-19 |
-| npm refresh — v1.0.1 publishes the new README over the old one | in progress: publishing (npm login approval) |
+| npm refresh — v1.0.1 publishes the new README over the old one | done 2026-10-19 — verified: `npm view` returns 1.0.1 + 144-line README |
 | Social preview | **manual** — GitHub → Settings → Social preview → upload `marketing/stills/out/og-card.png`. There is no API for this; GitHub's own community threads confirm it is UI-only. |
 | skills.sh page | no submission flow — the leaderboard is driven by anonymous install telemetry (see skills.sh/docs). `skills.sh/Ravinder82/FlyMascots` appears after the first real installs; then add the badge: `[![skills.sh](https://skills.sh/b/Ravinder82/FlyMascots)](https://skills.sh/Ravinder82/FlyMascots)` |
 | README check | open the repo README on github.com **and in dark mode** — the pipeline `<picture>` must swap, the film poster must show |
