@@ -11,7 +11,7 @@
 
 <p align="center">
   <code>npx skills add Ravinder82/FlyMascots</code> &nbsp;·&nbsp;
-  <a href="https://www.npmjs.com/package/flymascots">npm&nbsp;·&nbsp;v1.0.0</a> &nbsp;·&nbsp; MIT
+  <a href="https://www.npmjs.com/package/flymascots">npm&nbsp;·&nbsp;v1.0.1</a> &nbsp;·&nbsp; MIT
 </p>
 
 ---
@@ -67,7 +67,7 @@ a browser and follow the run step by step. This is the diagram from the Axo run:
 
 ```bash
 npx skills add Ravinder82/FlyMascots     # skills CLI
-npm i flymascots                         # or vendor the package (v1.0.0, MIT)
+npm i flymascots                         # or vendor the package (v1.0.1, MIT)
 ```
 
 Then ask your agent:

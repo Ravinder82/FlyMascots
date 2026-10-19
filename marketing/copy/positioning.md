@@ -12,7 +12,7 @@ aspirational — if a claim cannot be checked, it does not ship.
 | One sentence | An agent skill that takes a mascot from an idea, image or MascotForge export to a spring-animated character synced to your app's state — and verified before you see it. |
 | Tagline | Mascots that feel alive. |
 | Install | `npx skills add Ravinder82/FlyMascots` |
-| Package | `npm i flymascots` — v1.0.0, MIT |
+| Package | `npm i flymascots` — v1.0.1, MIT |
 
 ## Claims and their sources
 
@@ -26,7 +26,7 @@ aspirational — if a claim cannot be checked, it does not ship.
 | Five platforms — website (Three.js), macOS/iOS (SceneKit), React Native/Expo, static pages, Electron | `references/platforms.md` |
 | Every run ends with an interactive process diagram | `SKILL.md` intro + step 9 |
 | Proven on Axo (DayPilot, macOS/SceneKit) | `references/daypilot-case-study.md` |
-| MIT licence, v1.0.0 published | `LICENSE`, `package.json`, npm registry |
+| MIT licence, v1.0.1 published | `LICENSE`, `package.json`, npm registry |
 
 ## Never say
 
