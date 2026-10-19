@@ -1,13 +1,9 @@
 <p align="center">
-  <video
-    src="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-16x9.mp4"
-    poster="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-poster.png"
-    width="900"
-    controls
-    muted
-    loop
-    playsinline
-  ></video>
+  <a href="https://github.com/Ravinder82/FlyMascots/raw/main/assets/launch-16x9.mp4">
+    <img src="assets/launch-poster.png" width="900" alt="FlyMascots launch film — Axo on the live stage viewer. Click to play the 24-second film.">
+  </a>
+  <br>
+  <sub><b>▶ Watch the 24-second launch film</b> — click the image to play. Every frame is a screen recording of the real site, nothing is a mockup.</sub>
 </p>
 
 # FlyMascots
