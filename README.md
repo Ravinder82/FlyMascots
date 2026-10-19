@@ -16,16 +16,17 @@
 
 ---
 
-## The 24-second reel
+## The 24-second launch film
 
-The whole thing, cut on the beat — five moods, verification, install. Every
-frame is the real viewer; nothing is a mockup.
+The whole thing, cut on the beat — the live page, five moods, verification,
+install. Every frame is a screen recording of the real site and viewer;
+nothing is a mockup.
 
 <p align="center">
-  <video src="assets/reel-24s.mp4" poster="assets/reel-poster.png" width="720" controls muted loop playsinline></video>
+  <video src="assets/launch-16x9.mp4" poster="assets/launch-poster.png" width="720" controls muted loop playsinline></video>
 </p>
 
-<sub>Direct file: <a href="assets/reel-24s.mp4">24 s reel (MP4, 3.3 MB)</a> · Also rendered: <a href="marketing/renders/flymascots-story-16x9.mp4">story cut, 34 s</a> · <a href="marketing/renders/flymascots-reel-9x16.mp4">9:16 vertical</a> · <a href="marketing/renders/flymascots-story-9x16.mp4">story 9:16</a>.</sub>
+<sub>Direct file: <a href="assets/launch-16x9.mp4">24 s launch film, 16:9 (MP4, 6.2 MB)</a> · Also rendered: <a href="marketing/renders/flymascots-story-16x9.mp4">story cut, 34 s</a> · <a href="marketing/renders/flymascots-reel-9x16.mp4">9:16 vertical</a> · <a href="marketing/renders/flymascots-story-9x16.mp4">story 9:16</a>.</sub>
 
 ## Five moods, one word
 
@@ -121,7 +122,7 @@ diagrams/
 site/
   axo-stage.html               # the Axo stage viewer — real engine, 5 moods
 marketing/                     # every launch asset, generated from the viewer
-assets/                        # stills + the 24 s reel used by this README
+assets/                        # stills + the 24 s launch film used by this README
 ```
 
 ## Made with it: Axo
