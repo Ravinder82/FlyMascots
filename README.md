@@ -1,7 +1,7 @@
 <p align="center">
   <video
-    src="https://github.com/Ravinder82/FlyMascots/raw/main/assets/launch-16x9.mp4"
-    poster="https://github.com/Ravinder82/FlyMascots/raw/main/assets/launch-poster.png"
+    src="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-16x9.mp4"
+    poster="https://raw.githubusercontent.com/Ravinder82/FlyMascots/main/assets/launch-poster.png"
     width="900"
     controls
     muted
