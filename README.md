@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/launch-poster.png" width="900" alt="FlyMascots launch film — Axo on the live stage viewer, with the five mood buttons below">
+  <img src="assets/hero.png" width="900" alt="FlyMascots — give your project a mascot that feels alive. Axo, the mint axolotl mascot with goggles, beside the headline.">
 </p>
 
 # FlyMascots
@@ -7,8 +7,6 @@
 **Give your project a mascot that feels alive.**
 
 An agent skill that takes a mascot from an idea, an image, or a MascotForge export and turns it into a breathing, blinking character that changes mood with your app — verified before you ever see it.
-
-<sub>The whole thing, in twenty-four seconds. Every frame is a screen recording of the real site — nothing is a mockup.</sub>
 
 ## How it works
 
