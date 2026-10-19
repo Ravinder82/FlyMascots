@@ -202,7 +202,8 @@
   var playBtn = document.getElementById("playBtn");
   if (playBtn && reel) {
     playBtn.addEventListener("click", function () {
-      reel.muted = true;
+      reel.muted = false;
+      reel.volume = 1;
       reel.play();
       playBtn.classList.add("hidden");
     });
