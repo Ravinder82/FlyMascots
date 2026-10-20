@@ -32,6 +32,13 @@ const inline = `<script>${bundle.replace(/<\/script>/g, '<\\/script>')}</script>
 // String.replace would otherwise interpret as replacement patterns.
 const html = template.replace('<!--BUNDLE-->', () => inline);
 
-const out = path.join(ROOT, 'site/axo-stage.html');
-writeFileSync(out, html);
-console.log(`built ${out} (${(html.length / 1024).toFixed(0)} KB)`);
+// The website copy is the one that ships; site/ keeps a build copy for
+// quick local opens.
+const outs = [
+  path.join(ROOT, 'site/axo-stage.html'),
+  path.join(ROOT, 'website/assets/stage.html'),
+];
+for (const out of outs) {
+  writeFileSync(out, html);
+  console.log(`built ${path.relative(ROOT, out)} (${(html.length / 1024).toFixed(0)} KB)`);
+}

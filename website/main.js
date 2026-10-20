@@ -94,15 +94,48 @@
   /* ---------------- the stage (bare, transparent, alive) ---------------- */
 
   var stage = document.getElementById("stageFrame");
-  var moodButtons = Array.prototype.slice.call(document.querySelectorAll("[data-mood]"));
+  var moodButtons = Array.prototype.slice.call(document.querySelectorAll(".mood-buttons [data-mood]"));
+  var mascotCards = Array.prototype.slice.call(document.querySelectorAll(".mascot-card[data-mascot]"));
+  var moodTiles = Array.prototype.slice.call(document.querySelectorAll(".mood-tile"));
   var frozen = CAPTURE; // capture mode freezes the stage too, for exact pixels
   var currentMood = q.get("mood") || "idle";
+
+  /* Every character the page knows about. The stage, the cards and the
+     footage all read from here, so a new mascot is one entry. */
+  var MASCOTS = {
+    axo: {
+      label: "Axo",
+      loops: "media/moods/",
+      posters: "assets/mood-",
+      title: "The real FlyMascots viewer — Axo, live in 3D, responding to the mood buttons"
+    },
+    nicklas: {
+      label: "Nicklas",
+      loops: "media/moods/nicklas-",
+      posters: "assets/mood-nicklas-",
+      title: "The real FlyMascots viewer — Nicklas, live in 3D, responding to the mood buttons"
+    }
+  };
+
+  function readMascot() {
+    var asked = (q.get("mascot") || "").toLowerCase();
+    if (MASCOTS[asked]) return asked;
+    // Capture runs are deterministic — never fall back to a stored choice.
+    if (CAPTURE) return "axo";
+    var saved = null;
+    try { saved = localStorage.getItem("fm-mascot"); } catch (e) { /* file:// */ }
+    return MASCOTS[saved] ? saved : "axo";
+  }
+
+  var currentMascot = readMascot();
 
   if (stage) {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     stage.src =
-      "assets/stage.html?ui=0&bg=transparent&mood=" + encodeURIComponent(currentMood) +
+      "assets/stage.html?ui=0&bg=transparent&mascot=" + encodeURIComponent(currentMascot) +
+      "&mood=" + encodeURIComponent(currentMood) +
       "&dpr=" + dpr + (CAPTURE ? "&capture=1" : "");
+    stage.setAttribute("title", MASCOTS[currentMascot].title);
   }
 
   function sendStage(msg) {
@@ -123,8 +156,61 @@
     if (!silent) currentMood = mood;
   }
 
+  /* The five mood tiles follow the chosen character. */
+  var inView = new WeakMap();
+  var mediaMascot = null;
+
+  function applyMascotMedia(id) {
+    var spec = MASCOTS[id];
+    if (!spec || mediaMascot === id) return;
+    mediaMascot = id;
+    moodTiles.forEach(function (tile) {
+      var mood = tile.getAttribute("data-mood");
+      var v = tile.querySelector("video");
+      if (!v) return;
+      Array.prototype.slice.call(v.querySelectorAll("source")).forEach(function (s) {
+        s.setAttribute("src", spec.loops + mood + "." + s.getAttribute("data-ext"));
+      });
+      v.setAttribute("poster", spec.posters + mood + "-poster.png");
+      v.load();
+      if (inView.get(v)) {
+        v.preload = "auto";
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    });
+    var who = document.getElementById("moodsWho");
+    if (who) who.textContent = spec.label;
+  }
+
+  function syncMascotCards(key) {
+    mascotCards.forEach(function (card) {
+      var on = card.getAttribute("data-mascot") === key;
+      card.classList.toggle("on", on);
+      card.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function setMascot(id, silent) {
+    var key = String(id || "").toLowerCase();
+    if (!MASCOTS[key]) key = "axo";
+    currentMascot = key;
+    sendStage({ mascot: key });
+    syncMascotCards(key);
+    if (stage) stage.setAttribute("title", MASCOTS[key].title);
+    applyMascotMedia(key);
+    if (!silent) {
+      try { localStorage.setItem("fm-mascot", key); } catch (e) {}
+    }
+    return key;
+  }
+
   moodButtons.forEach(function (btn) {
     btn.addEventListener("click", function () { setMood(btn.getAttribute("data-mood")); });
+  });
+
+  mascotCards.forEach(function (card) {
+    card.addEventListener("click", function () { setMascot(card.getAttribute("data-mascot")); });
   });
 
   var boopBtn = document.getElementById("boopBtn");
@@ -138,6 +224,11 @@
     if (d && d.type === "flymascots" && d.ready) setMood(currentMood, true);
   });
 
+  // The opening character is in the URL already, so the stage starts on it —
+  // and the cast cards have to agree with it from the first paint.
+  applyMascotMedia(currentMascot);
+  syncMascotCards(currentMascot);
+
   /* ---------------- mood loops (real footage, plays in view) ---------------- */
 
   var loops = Array.prototype.slice.call(document.querySelectorAll(".mood-loop"));
@@ -147,6 +238,7 @@
     var vio = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var v = entry.target;
+        inView.set(v, entry.isIntersecting);
         if (entry.isIntersecting) {
           if (v.preload !== "auto") v.preload = "auto";
           var p = v.play();
@@ -245,6 +337,7 @@
 
     pose: function (mood) { setMood(String(mood || "idle"), true); },
     mood: function (mood) { setMood(String(mood || "idle"), true); },
+    mascot: function (id) { return setMascot(String(id || "axo"), true); },
 
     state: function (name) {
       String(name).split(/[,&]/).forEach(function (pair) {
@@ -252,6 +345,7 @@
         var k = kv[0].trim(), v = (kv[1] || "").trim();
         if (k === "theme") setTheme(v);
         if (k === "mood") setMood(v, true);
+        if (k === "mascot") setMascot(v, true);
         if (k === "shot") {
           var el = document.querySelector(v.charAt(0) === "#" ? v : "#" + v);
           if (el) el.scrollIntoView({ behavior: "instant", block: "start" });

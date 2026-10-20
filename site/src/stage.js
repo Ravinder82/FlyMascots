@@ -1,10 +1,9 @@
 import * as THREE from 'three';
 import {
-  BAKED_MASCOT_CONFIG,
   createStudioEnvTexture,
   createSoftShadowMap,
-  buildProceduralMascot,
 } from './engine.js';
+import { getMascot, normMascot } from './mascots/index.js';
 
 /* ------------------------------------------------------------------ *
  * Axo stage — the real MascotForge export, rendered for capture.
@@ -18,6 +17,7 @@ const TRANSPARENT = q.get('bg') === 'transparent';
 const CAPTURE = q.get('capture') === '1';
 const BLINK_HOLD = Number(q.get('blinkhold')) || 0;
 const DPR = Number(q.get('dpr')) || Math.min(window.devicePixelRatio || 1, 2);
+const MASCOT_ID = normMascot(q.get('mascot') || 'axo');
 
 if (BARE) document.body.classList.add('is-bare');
 if (TRANSPARENT) document.body.classList.add('is-transparent');
@@ -74,11 +74,22 @@ renderer.setClearColor(0x000000, 0);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 80);
 const CAM_YAW = Number(q.get('yaw')) || 0;
-const CAM_DIST = Number(q.get('dist')) || 6.9;
-const CAM_Y = Number(q.get('camy')) || 0.5;
-const CAM_LOOK = q.get('looky') !== null ? Number(q.get('looky')) : 0.42;
-camera.position.set(Math.sin(CAM_YAW) * CAM_DIST, CAM_Y, Math.cos(CAM_YAW) * CAM_DIST);
-camera.lookAt(0, CAM_LOOK, 0);
+let CAM_DIST = Number(q.get('dist')) || 6.9;
+let CAM_Y = Number(q.get('camy')) || 0.5;
+let CAM_LOOK = q.get('looky') !== null ? Number(q.get('looky')) : 0.42;
+
+/* Each mascot frames itself — the sculpt is a different size to the
+ * procedural build. URL params still win, so captures can override. */
+function applyCamera(entry) {
+  const cam = entry.camera || {};
+  CAM_DIST = q.get('dist') !== null ? Number(q.get('dist')) : (cam.dist ?? 6.9);
+  CAM_Y = q.get('camy') !== null ? Number(q.get('camy')) : (cam.camy ?? 0.5);
+  CAM_LOOK = q.get('looky') !== null ? Number(q.get('looky')) : (cam.looky ?? 0.42);
+  camera.fov = cam.fov ?? 40;
+  camera.position.set(Math.sin(CAM_YAW) * CAM_DIST, CAM_Y, Math.cos(CAM_YAW) * CAM_DIST);
+  camera.lookAt(0, CAM_LOOK, 0);
+  camera.updateProjectionMatrix();
+}
 
 const envMap = createStudioEnvTexture(renderer, 'softbox');
 scene.environment = envMap;
@@ -121,8 +132,8 @@ scene.add(shadow);
  * Mascot
  * ------------------------------------------------------------------ */
 
+/* Tick state handed to the mascot rig. */
 const CONFIG = {
-  ...BAKED_MASCOT_CONFIG,
   pose: 'idle',
   trackCursor: true,
   levitation: 0.2,
@@ -133,6 +144,7 @@ let root = null;
 let pivots = null;
 let eyesGroup = null;
 let lensGroup = null;
+let mascotId = MASCOT_ID;
 let simTime = 0;
 let mood = INITIAL_MOOD;
 let timeline = null;
@@ -223,10 +235,25 @@ function build() {
       }
     });
   }
-  root = buildProceduralMascot({ ...CONFIG }, envMap);
-  const themed = applyTheme(root);
-  pivots = themed.pivots;
+  const entry = getMascot(mascotId);
+  applyCamera(entry);
+
+  if (entry.kind === 'glb') {
+    // A ready-made sculpt: it keeps its own palette, we only rig it.
+    const rig = entry.build({ model: entry.model });
+    root = rig.root;
+    pivots = rig.pivots;
+    eyesGroup = rig.eyesGroup;
+  } else {
+    root = entry.build({ envMap });
+    const themed = applyTheme(root);
+    pivots = themed.pivots;
+  }
+
   scene.add(root);
+  // The sculpt brings its own plinth, so the stage's floor shadow steps aside.
+  shadow.visible = !entry.plinth;
+
   simTime = 0;
   timelineIndex = 0;
   sleepEase = 0;
@@ -240,6 +267,7 @@ function build() {
   root.userData.pointerX = 0;
   root.userData.pointerY = 0;
   updateReadout();
+  updateMascotChrome();
 }
 
 /* ------------------------------------------------------------------ *
@@ -334,10 +362,29 @@ function setMood(next, silent = false) {
 
 function updateReadout() {
   const m = MOODS[mood];
+  const spec = getMascot(mascotId).config || {};
+  const k = spec.springStiffness ?? 70;
+  const damping = spec.springDamping ?? 11;
   const readout = document.getElementById('readout');
   const tag = document.getElementById('mood-tag-label');
-  if (readout) readout.innerHTML = `<b>mood</b> ${m.label} · <b>state</b> ${m.work} · <b>springs</b> k70/d11`;
+  if (readout) readout.innerHTML = `<b>mood</b> ${m.label} · <b>state</b> ${m.work} · <b>springs</b> k${k}/d${damping}`;
   if (tag) tag.textContent = m.label;
+}
+
+/* The chrome names whichever character is on stage. */
+function updateMascotChrome() {
+  const entry = getMascot(mascotId);
+  const label = entry.label || 'Axo';
+  const mark = document.getElementById('mascot-wordmark');
+  const sub = document.getElementById('mascot-sub');
+  const card = document.getElementById('stage-card');
+  if (mark) mark.textContent = label.toUpperCase();
+  if (sub) sub.textContent = entry.subtitle || '';
+  if (card) card.setAttribute('aria-label', `${label} mascot stage`);
+  document.title = `${label} — FlyMascots stage`;
+  document.querySelectorAll('.mascot-pill').forEach((pill) => {
+    pill.setAttribute('aria-pressed', String(pill.dataset.mascot === mascotId));
+  });
 }
 
 function still(options = {}) {
@@ -374,21 +421,44 @@ function boop() {
   if (root) root.userData.boop();
 }
 
+/* Swap the character on stage — the library grows without touching the
+ * stage, the landing page or the capture rig. */
+async function setMascot(id) {
+  const next = normMascot(id);
+  const entry = getMascot(next);
+  if (entry.load && !entry.model) entry.model = await entry.load();
+  mascotId = next;
+  build();
+  setMood(mood, true);
+  stepUntil(0.9);
+  render();
+  updateReadout();
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'flymascots', ready: true, mood, mascot: mascotId }, '*');
+  }
+  return mascotId;
+}
+
 window.AxoStage = {
   setMood,
   boop,
   still,
   seekTo,
   resetFilm,
+  setMascot,
   debug: () => ({
     blinking: root?.userData?.isBlinking,
     blinkTimer: root?.userData?.blinkTimer,
     eyeY: eyesGroup?.scale.y,
     simTime,
     hold: blinkHoldFrames,
+    mascot: mascotId,
   }),
   get mood() {
     return mood;
+  },
+  get mascot() {
+    return mascotId;
   },
   get time() {
     return simTime;
@@ -416,34 +486,54 @@ function resize() {
 new ResizeObserver(resize).observe(stageCard);
 resize();
 
-build();
-setMood(INITIAL_MOOD, true);
+async function boot() {
+  // A sculpt has to arrive before the first frame; a procedural build does not.
+  const entry = getMascot(mascotId);
+  if (entry.load && !entry.model) entry.model = await entry.load();
 
-// Warm-up so the first frame is settled and shader-compiled.
-stepUntil(0.9);
+  build();
+  setMood(INITIAL_MOOD, true);
 
-const frozen = INITIAL_T !== null || CAPTURE;
-if (frozen) {
-  const t = INITIAL_T !== null ? INITIAL_T : 2.4;
-  resetForCapture(INITIAL_MOOD);
-  stepUntil(t);
-} else {
-  let last = performance.now();
-  const loop = (now) => {
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
-    simTime += dt;
-    stepSim(dt);
-    render();
+  // Warm-up so the first frame is settled and shader-compiled.
+  stepUntil(0.9);
+
+  const frozen = INITIAL_T !== null || CAPTURE;
+  if (frozen) {
+    const t = INITIAL_T !== null ? INITIAL_T : 2.4;
+    resetForCapture(INITIAL_MOOD);
+    stepUntil(t);
+  } else {
+    let last = performance.now();
+    const loop = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      simTime += dt;
+      stepSim(dt);
+      render();
+      requestAnimationFrame(loop);
+    };
     requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
+  }
+
+  window.__AXO_READY = true;
+  render();
+
+  /* Tell a host page (the landing page, a capture script) we can take orders. */
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'flymascots', ready: true, mood, mascot: mascotId }, '*');
+  }
 }
+
+boot();
 
 /* UI */
 
 document.querySelectorAll('.mood-pill').forEach((pill) => {
   pill.addEventListener('click', () => setMood(pill.dataset.mood));
+});
+
+document.querySelectorAll('.mascot-pill').forEach((pill) => {
+  pill.addEventListener('click', () => setMascot(pill.dataset.mascot));
 });
 
 document.getElementById('boop')?.addEventListener('click', () => {
@@ -488,12 +578,5 @@ window.addEventListener('message', (event) => {
   }
   if (data.mood) setMood(data.mood);
   if (data.boop) boop();
+  if (data.mascot) setMascot(data.mascot);
 });
-
-window.__AXO_READY = true;
-render();
-
-/* Tell a host page (the landing page, a capture script) we can take orders. */
-if (window.parent !== window) {
-  window.parent.postMessage({ type: 'flymascots', ready: true, mood }, '*');
-}

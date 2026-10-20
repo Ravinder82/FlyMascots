@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Axo — FlyMascots stage</title>
+<meta name="description" content="The real FlyMascots stage — pick a mascot, set a mood, and watch it breathe." />
 <style>
   :root {
     --paper: #f3eee5;
@@ -215,6 +216,51 @@
     outline-offset: 2px;
   }
 
+  .mascots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+  }
+
+  .mascot-pill {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--pill);
+    color: var(--ink-soft);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 550;
+    letter-spacing: 0.01em;
+    padding: 9px 16px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .mascot-pill:hover {
+    border-color: rgba(20, 35, 31, 0.22);
+    color: var(--ink);
+  }
+
+  .mascot-pill:active { transform: scale(0.97); }
+
+  .mascot-pill[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #f8f4ea;
+    box-shadow: 0 10px 24px -12px rgba(20, 35, 31, 0.55);
+  }
+
+  .mascot-pill:focus-visible {
+    outline: 2px solid var(--mint-deep);
+    outline-offset: 2px;
+  }
+
   .boop {
     margin-left: 10px;
     display: inline-flex;
@@ -257,12 +303,14 @@
   }
 
   body.is-capture .controls,
+  body.is-capture .mascots,
   body.is-capture .hint { visibility: hidden; }
 
   body.is-bare .stage-meta,
   body.is-bare .readout,
   body.is-bare .mood-tag,
   body.is-bare .controls,
+  body.is-bare .mascots,
   body.is-bare .hint { display: none; }
 
   body.is-bare { background: transparent; }
@@ -302,17 +350,22 @@
 </head>
 <body>
   <main class="shell">
-    <section class="stage-card" aria-label="Axo mascot stage">
+    <section class="stage-card" id="stage-card" aria-label="Mascot stage">
       <canvas id="stage" class="stage-canvas"></canvas>
       <div class="stage-meta">
-        <span class="wordmark"><span class="dot"></span>AXO</span>
-        <span class="stage-sub">Cyber Axolotl Synthesizer · 1:1 export</span>
+        <span class="wordmark"><span class="dot"></span><span id="mascot-wordmark">AXO</span></span>
+        <span class="stage-sub" id="mascot-sub">Cyber Axolotl Synthesizer · 1:1 export</span>
       </div>
       <div class="readout" id="readout"><b>mood</b> idle · <b>breath</b> 2.0 · <b>springs</b> k70/d11</div>
       <div class="mood-tag"><span class="pulse"></span><span id="mood-tag-label">idle</span></div>
     </section>
 
-    <nav class="controls" aria-label="Mascot moods">
+    <nav class="mascots" aria-label="Choose a mascot">
+      <button class="mascot-pill" data-mascot="axo" aria-pressed="true">Axo</button>
+      <button class="mascot-pill" data-mascot="nicklas" aria-pressed="false">Nicklas</button>
+    </nav>
+
+    <nav class="controls" aria-label="Set the mood">
       <button class="mood-pill" data-mood="idle" aria-pressed="true">Idle</button>
       <button class="mood-pill" data-mood="working" aria-pressed="false">Working</button>
       <button class="mood-pill" data-mood="think" aria-pressed="false">Thinking</button>

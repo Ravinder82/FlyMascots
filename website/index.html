@@ -64,6 +64,29 @@
       loading="eager" scrolling="no" allow="fullscreen"></iframe>
   </div>
 
+  <div class="mascot-row hero-anim" role="group" aria-label="Choose a mascot">
+    <button type="button" class="mascot-card on" data-mascot="axo" aria-pressed="true">
+      <span class="mascot-shot">
+        <img src="assets/mascot-axo.png" alt="" aria-hidden="true" width="128" height="128">
+      </span>
+      <span class="mascot-text">
+        <b>Axo</b>
+        <span class="mascot-sub">Cyber Axolotl Synthesizer</span>
+        <em class="mascot-blurb">The demo character — a mint axolotl with goggles, built in code by the skill itself.</em>
+      </span>
+    </button>
+    <button type="button" class="mascot-card" data-mascot="nicklas" aria-pressed="false">
+      <span class="mascot-shot">
+        <img src="assets/mascot-nicklas.png" alt="" aria-hidden="true" width="128" height="128">
+      </span>
+      <span class="mascot-text">
+        <b>Nicklas</b>
+        <span class="mascot-sub">24K Royal Gold St. Nick</span>
+        <em class="mascot-blurb">A ready-made sculpt — 24K gold, a gift in one hand, exported straight out of the studio.</em>
+      </span>
+    </button>
+  </div>
+
   <div class="hero-controls hero-anim">
     <div class="mood-buttons" role="group" aria-label="Set the mascot's mood">
       <button type="button" data-mood="idle" class="on" aria-pressed="true">idle</button>
@@ -73,7 +96,7 @@
       <button type="button" data-mood="sleep" aria-pressed="false">sleep</button>
       <button type="button" class="boop-btn" id="boopBtn" title="Boop the mascot">boop</button>
     </div>
-    <p class="stage-note">The real viewer, live in 3D — pick a mood. Go on, boop him.</p>
+    <p class="stage-note">The real viewer, live in 3D — pick a mascot, pick a mood. Go on, boop it.</p>
   </div>
 </section>
 
@@ -119,50 +142,51 @@
   <h2>Five faces. One word each.</h2>
   <p class="section-lede">Real footage of the character, caught mid-mood —
     breathing, blinking, hopping, sleeping.</p>
+  <p class="moods-who">Footage of <b id="moodsWho">Axo</b> — pick another character above and these follow it.</p>
 
   <div class="mood-grid">
-    <figure class="mood-tile">
+    <figure class="mood-tile" data-mood="idle">
       <video class="mood-loop" muted loop playsinline preload="none"
         poster="assets/mood-idle-poster.png" width="560" height="700"
         aria-label="The mascot resting, breathing and blinking">
-        <source src="media/moods/idle.webm" type="video/webm">
-        <source src="media/moods/idle.mp4" type="video/mp4">
+        <source src="media/moods/idle.webm" type="video/webm" data-ext="webm">
+        <source src="media/moods/idle.mp4" type="video/mp4" data-ext="mp4">
       </video>
       <figcaption><b>idle</b><span>resting, breathing, blinking</span></figcaption>
     </figure>
-    <figure class="mood-tile">
+    <figure class="mood-tile" data-mood="working">
       <video class="mood-loop" muted loop playsinline preload="none"
         poster="assets/mood-working-poster.png" width="560" height="700"
         aria-label="The mascot pulling its goggles down to work">
-        <source src="media/moods/working.webm" type="video/webm">
-        <source src="media/moods/working.mp4" type="video/mp4">
+        <source src="media/moods/working.webm" type="video/webm" data-ext="webm">
+        <source src="media/moods/working.mp4" type="video/mp4" data-ext="mp4">
       </video>
       <figcaption><b>working</b><span>goggles down, head down</span></figcaption>
     </figure>
-    <figure class="mood-tile">
+    <figure class="mood-tile" data-mood="think">
       <video class="mood-loop" muted loop playsinline preload="none"
         poster="assets/mood-think-poster.png" width="560" height="700"
         aria-label="The mascot thinking, chin in hand">
-        <source src="media/moods/think.webm" type="video/webm">
-        <source src="media/moods/think.mp4" type="video/mp4">
+        <source src="media/moods/think.webm" type="video/webm" data-ext="webm">
+        <source src="media/moods/think.mp4" type="video/mp4" data-ext="mp4">
       </video>
       <figcaption><b>think</b><span>chin in hand, thinking it over</span></figcaption>
     </figure>
-    <figure class="mood-tile">
+    <figure class="mood-tile" data-mood="celebrate">
       <video class="mood-loop" muted loop playsinline preload="none"
         poster="assets/mood-celebrate-poster.png" width="560" height="700"
         aria-label="The mascot celebrating with a hop and a wave">
-        <source src="media/moods/celebrate.webm" type="video/webm">
-        <source src="media/moods/celebrate.mp4" type="video/mp4">
+        <source src="media/moods/celebrate.webm" type="video/webm" data-ext="webm">
+        <source src="media/moods/celebrate.mp4" type="video/mp4" data-ext="mp4">
       </video>
       <figcaption><b>celebrate</b><span>a hop and a wave</span></figcaption>
     </figure>
-    <figure class="mood-tile">
+    <figure class="mood-tile" data-mood="sleep">
       <video class="mood-loop" muted loop playsinline preload="none"
         poster="assets/mood-sleep-poster.png" width="560" height="700"
         aria-label="The mascot asleep, eyes closed, breathing slowly">
-        <source src="media/moods/sleep.webm" type="video/webm">
-        <source src="media/moods/sleep.mp4" type="video/mp4">
+        <source src="media/moods/sleep.webm" type="video/webm" data-ext="webm">
+        <source src="media/moods/sleep.mp4" type="video/mp4" data-ext="mp4">
       </video>
       <figcaption><b>sleep</b><span>eyes closed, slow breath</span></figcaption>
     </figure>
@@ -244,7 +268,7 @@
       <code>npm i flymascots</code>
       <button class="term-copy" type="button" data-copy="npm i flymascots">Copy</button>
     </div>
-    <p class="term-note">MIT · v1.0.1 · the package carries the skill, the
+    <p class="term-note">MIT · v1.2.0 · the package carries the skill, the
       pipeline diagram and the README</p>
   </div>
 </section>
@@ -276,9 +300,10 @@
   </details>
   <details class="qa">
     <summary>What is the mascot on this page?</summary>
-    <p>Axo — a demo character built with the skill itself. Every loop, frame
-      and number on this page comes from that build; your mascot will be
-      yours.</p>
+    <p>Two of them. Axo — a demo character built in code with the skill
+      itself — and Nicklas, a sculpt exported straight out of the studio.
+      Every loop, frame and number on this page comes from those builds;
+      your mascot will be yours.</p>
   </details>
 </section>
 
@@ -296,8 +321,9 @@
       <a href="https://github.com/Ravinder82/FlyMascots/blob/main/skills/flymascots/SKILL.md">The skill</a>
     </nav>
   </div>
-  <p class="foot-note">MIT · Ravinder Poonia. The demo character, Axo, was
-    built with the skill itself.<br>
+  <p class="foot-note">MIT · Ravinder Poonia. Axo, the demo character, was
+    built in code with the skill itself; Nicklas came out of the studio as
+    a sculpt.<br>
     <span>Every image, loop and frame on this page was captured from the real
     product — nothing here is a mockup.</span></p>
 </footer>

@@ -3,8 +3,9 @@
  * seeks from the real viewer, transparent PNG sequence, flattened onto the
  * card's studio cream and encoded to mp4 + webm. Real motion, never faked.
  *
- * Usage: node capture-mood-loops.mjs
- * Output: website/media/moods/<mood>.mp4|.webm + website/assets/mood-<mood>-poster.png
+ * Usage: node capture-mood-loops.mjs [mascot]
+ * Output: website/media/moods/<mascot-><mood>.mp4|.webm
+ *         website/assets/mood-<mascot-><mood>-poster.png
  */
 import puppeteer from 'puppeteer-core';
 import { mkdirSync, rmSync, copyFileSync } from 'node:fs';
@@ -21,6 +22,10 @@ const FPS = 30;
 const W = 560;
 const H = 700;
 const CARD_BG = '0xF7F2E9'; // the tile's studio cream — matches the site card
+
+/* Any mascot in the library. Axo keeps the plain names it always had. */
+const MASCOT = (process.argv[2] || 'axo').toLowerCase();
+const SLUG = MASCOT === 'axo' ? '' : `${MASCOT}-`;
 
 const LOOPS = [
   { mood: 'idle', seconds: 4.0, timeline: null },
@@ -45,9 +50,10 @@ for (const loop of LOOPS) {
   mkdirSync(dir, { recursive: true });
 
   const page = await browser.newPage();
+  page.on('pageerror', (e) => console.log('  page exception:', e.message));
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
-  await page.goto(`${STAGE}?ui=0&capture=1&bg=transparent&dpr=1`, { waitUntil: 'networkidle0' });
-  await page.waitForFunction(() => window.__AXO_READY === true, { timeout: 30000 });
+  await page.goto(`${STAGE}?ui=0&capture=1&bg=transparent&dpr=1&mascot=${MASCOT}`, { waitUntil: 'networkidle0' });
+  await page.waitForFunction(() => window.__AXO_READY === true, { timeout: 60000 });
   await page.evaluate((tl) => window.AxoStage.resetFilm(tl), loop.timeline);
 
   const frames = Math.round(loop.seconds * FPS);
@@ -58,10 +64,10 @@ for (const loop of LOOPS) {
       path: path.join(dir, `f${String(i).padStart(4, '0')}.png`),
       omitBackground: true,
     });
-    if (i % 45 === 0) process.stdout.write(`\r${loop.mood}: ${i}/${frames}`);
+    if (i % 45 === 0) process.stdout.write(`\r${MASCOT} ${loop.mood}: ${i}/${frames}`);
   }
   await page.close();
-  console.log(`\r${loop.mood}: ${frames} frames in ${((Date.now() - started) / 1000).toFixed(0)}s`);
+  console.log(`\r${MASCOT} ${loop.mood}: ${frames} frames in ${((Date.now() - started) / 1000).toFixed(0)}s`);
 
   // Flatten onto the card cream and encode both formats.
   const base = ['-framerate', String(FPS), '-i', path.join(dir, 'f%04d.png')];
@@ -71,14 +77,14 @@ for (const loop of LOOPS) {
     '-filter_complex', filter,
     '-c:v', 'libx264', '-profile:v', 'high', '-crf', '24', '-pix_fmt', 'yuv420p',
     '-movflags', '+faststart', '-t', String(loop.seconds),
-    path.join(OUT, `${loop.mood}.mp4`),
+    path.join(OUT, `${SLUG}${loop.mood}.mp4`),
   ], { stdio: 'pipe' });
   execFileSync('ffmpeg', [
     '-y', ...base, '-f', 'lavfi', '-i', `color=c=${CARD_BG}:s=${W}x${H}:r=${FPS}`,
     '-filter_complex', filter,
     '-c:v', 'libvpx-vp9', '-crf', '36', '-b:v', '0', '-row-mt', '1', '-pix_fmt', 'yuv420p',
     '-t', String(loop.seconds),
-    path.join(OUT, `${loop.mood}.webm`),
+    path.join(OUT, `${SLUG}${loop.mood}.webm`),
   ], { stdio: 'pipe' });
 
   // Poster = flattened first frame, sized for the tile.
@@ -86,7 +92,7 @@ for (const loop of LOOPS) {
     '-y', '-i', path.join(dir, 'f0000.png'),
     '-f', 'lavfi', '-i', `color=c=${CARD_BG}:s=${W}x${H}`,
     '-filter_complex', '[1][0]overlay=shortest=1',
-    '-frames:v', '1', path.join(POSTERS, `mood-${loop.mood}-poster.png`),
+    '-frames:v', '1', path.join(POSTERS, `mood-${SLUG}${loop.mood}-poster.png`),
   ], { stdio: 'pipe' });
 }
 
