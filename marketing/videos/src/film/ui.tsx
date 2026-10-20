@@ -141,7 +141,8 @@ export const Mascot: React.FC<{
   y: number;
   entrance?: 'none' | 'pop' | 'rise';
   at?: number;
-}> = ({ shot, startFrame, size, x, y, entrance = 'none', at = 0 }) => {
+  mascot?: string;
+}> = ({ shot, startFrame, size, x, y, entrance = 'none', at = 0, mascot = 'axo' }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const index = Math.min(SHOT_LENGTH[shot] - 1, Math.max(0, startFrame + frame));
@@ -171,7 +172,7 @@ export const Mascot: React.FC<{
       }}
     >
       <Img
-        src={staticFile(`axo/${shot}/f${String(index).padStart(4, '0')}.png`)}
+        src={staticFile(`${mascot}/${shot}/f${String(index).padStart(4, '0')}.png`)}
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
       />
     </div>

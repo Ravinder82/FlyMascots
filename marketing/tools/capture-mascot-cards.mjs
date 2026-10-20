@@ -18,6 +18,9 @@ const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const STAGE = `file://${ROOT}/website/assets/stage.html`;
 const SIZE = 1000;
 const OUT = 320;
+// Scratch space for the raw 1000px shots. Deliberately NOT inside
+// marketing/videos/public — that folder belongs to the films.
+const TMP = path.join(ROOT, 'marketing/tools/.cards-tmp');
 
 /* Each character gets its own portrait framing — a sculpt and a procedural
  * build are not the same shape, so the camera is not the same either. */
@@ -58,7 +61,7 @@ for (const member of CAST) {
   );
   await new Promise((r) => setTimeout(r, 200));
 
-  const raw = path.join(ROOT, `marketing/videos/public/card-${member.id}.png`);
+  const raw = path.join(TMP, `card-${member.id}.png`);
   mkdirSync(path.dirname(raw), { recursive: true });
   await page.screenshot({ path: raw, omitBackground: true });
   await page.close();
@@ -75,5 +78,7 @@ for (const member of CAST) {
 }
 
 await browser.close();
-execFileSync('rm', ['-rf', path.join(ROOT, 'marketing/videos/public')]);
+// Only our own scratch dir goes — `marketing/videos/public` belongs to the
+// films and holds the captured frames, the icon and the soundtrack.
+execFileSync('rm', ['-rf', TMP]);
 console.log('done →', TARGETS.join(', '));

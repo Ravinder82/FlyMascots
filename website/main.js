@@ -44,7 +44,6 @@
     mark.forEach(function (img) {
       img.src = name === "dark" ? "assets/icon-dark.svg" : "assets/icon.svg";
     });
-    syncPipeline(name);
   }
 
   var toggle = document.getElementById("themeToggle");
@@ -54,14 +53,6 @@
       setTheme(next);
       try { localStorage.setItem("fm-theme", next); } catch (e) {}
     });
-  }
-
-  function syncPipeline(name) {
-    var img = document.querySelector(".pipe-frame img");
-    var src = document.querySelector(".pipe-frame source");
-    if (!img) return;
-    img.src = name === "dark" ? "assets/pipeline-dark.png" : "assets/pipeline-light.png";
-    if (src) src.removeAttribute("srcset"); // explicit src wins for capture
   }
 
   if (CAPTURE) root.classList.add("is-capture");
@@ -288,8 +279,7 @@
   if (shot) {
     var map = {
       hero: "#top", stage: "#demo", how: "#how", film: "#film",
-      proof: "#proof", install: "#install", moods: "#moods",
-      platforms: ".platforms", pipeline: ".pipeline", faq: ".faq"
+      install: "#install", moods: "#moods", platforms: ".platforms", faq: ".faq"
     };
     var sel = map[shot] || (shot.charAt(0) === "#" ? shot : null);
     if (sel) {

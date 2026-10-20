@@ -19,11 +19,6 @@
   --shadow:    0 40px 90px -50px rgba(16,32,27,.45);
   --spot-core: rgba(255,254,251,.95);
   --spot-edge: rgba(243,246,245,0);
-  --proof-bg:  #10201B;
-  --proof-fg:  #F3F6F5;
-  --proof-soft:rgba(243,246,245,.66);
-  --proof-line:rgba(243,246,245,.14);
-
   --r-pill: 999px;
   --r-card: 24px;
   --r-term: 18px;
@@ -51,10 +46,6 @@
   --shadow:    0 40px 90px -50px rgba(0,0,0,.7);
   --spot-core: rgba(63,210,189,.10);
   --spot-edge: rgba(20,23,25,0);
-  --proof-bg:  #1C2124;
-  --proof-fg:  #E9EDEE;
-  --proof-soft:rgba(233,237,238,.64);
-  --proof-line:rgba(233,237,238,.12);
 }
 
 /* ---------------- base ---------------- */
@@ -116,7 +107,7 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
   margin: 20px 0 0;
 }
 
-.stage-note, .film-foot, .proof-src, .term-note, .foot-note {
+.stage-note, .film-foot, .term-note, .foot-note {
   font-family: var(--mono);
   font-size: 12.5px;
   line-height: 1.7;
@@ -306,35 +297,9 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
   color: var(--ink-faint); margin-top: 6px;
 }
 
-/* ---------------- facts strip ---------------- */
-
-.strip {
-  max-width: var(--wrap); margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  padding-block: 0;
-}
-.strip-item {
-  text-align: center; padding: 26px 10px;
-}
-.strip-item:nth-child(2n) { border-left: 1px solid var(--hairline); }
-.strip-item:nth-child(n+3) { border-top: 1px solid var(--hairline); }
-.strip-item b {
-  display: block;
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(30px, 6.4vw, 50px);
-  letter-spacing: -.03em;
-  font-variant-numeric: tabular-nums;
-}
-.strip-item span {
-  display: block; margin-top: 6px;
-  font-size: 13px; color: var(--ink-faint);
-}
-
 /* ---------------- how it works ---------------- */
 
-.how, .moods, .film, .platforms, .pipeline, .install, .faq {
+.how, .moods, .film, .platforms, .install, .faq {
   max-width: var(--wrap); margin: 0 auto;
 }
 
@@ -365,6 +330,16 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
   border-radius: var(--r-pill); padding: 8px 14px;
   color: var(--mint-deep);
   max-width: 100%; overflow-x: auto; white-space: nowrap;
+}
+
+.how-note {
+  margin: 26px 0 0; max-width: 64ch;
+  font-size: 16px; line-height: 1.6;
+  color: var(--ink-soft);
+}
+.how-note b {
+  font-family: var(--mono); font-size: 14px; font-weight: 500;
+  color: var(--mint-deep);
 }
 
 /* ---------------- moods ---------------- */
@@ -475,67 +450,29 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
 
 .homes {
   list-style: none; margin: 32px 0 0; padding: 0;
-  border-top: 1px solid var(--hairline);
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
 }
 .homes li {
-  display: grid; gap: 2px;
-  padding: 18px 2px;
-  border-bottom: 1px solid var(--hairline);
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 22px 20px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow);
 }
 .homes b { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
 .homes span { color: var(--ink-soft); font-size: 15.5px; }
-
-/* ---------------- proof (the one dark moment) ---------------- */
-
-.proof {
-  background: var(--proof-bg);
-  color: var(--proof-fg);
-  max-width: none;
+.homes em {
+  margin-top: 6px; padding-top: 12px;
+  border-top: 1px solid var(--hairline);
+  font-style: normal;
+  font-size: 14.5px; line-height: 1.5;
+  color: var(--ink-faint);
 }
-.proof > * { max-width: var(--wrap); margin-left: auto; margin-right: auto; }
-.proof h2 { color: var(--proof-fg); }
-.proof-lede {
-  color: var(--proof-soft); max-width: 56ch;
-  font-size: clamp(16px, 2vw, 18.5px); margin: 18px 0 0;
+.homes em code {
+  font-family: var(--mono); font-size: 13px; color: var(--mint-deep);
 }
-
-.proof-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; margin-top: 40px;
-  background: var(--proof-line);
-  border: 1px solid var(--proof-line);
-  border-radius: var(--r-card);
-  overflow: hidden;
-}
-.proof-cell { background: var(--proof-bg); padding: 24px 20px; }
-.proof-cell b {
-  display: block;
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(28px, 5.6vw, 42px);
-  letter-spacing: -.03em;
-  color: var(--mint);
-  font-variant-numeric: tabular-nums;
-}
-.proof-cell span {
-  display: block; margin-top: 8px;
-  font-size: 14px; line-height: 1.45;
-  color: var(--proof-soft);
-}
-
-.proof-src { margin-top: 26px; color: var(--proof-soft); opacity: .75; }
-.proof-src code { font-family: var(--mono); font-size: 12px; color: var(--mint); }
-
-/* ---------------- pipeline ---------------- */
-
-.pipe-frame {
-  display: block; margin-top: 30px;
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-.pipe-frame img { width: 100%; height: auto; }
 
 /* ---------------- install ---------------- */
 
@@ -641,11 +578,7 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
   .cta { flex-direction: row; justify-content: center; gap: 10px; }
   .cmd code { white-space: nowrap; overflow-x: auto; scrollbar-width: none; }
   .cmd code::-webkit-scrollbar { display: none; }
-  .strip { grid-template-columns: repeat(4, 1fr); }
-  .strip-item:nth-child(n+3) { border-top: 0; }
-  .strip-item:nth-child(2n) { border-left: 1px solid var(--hairline); }
-  .strip-item:first-child { border-left: 0; }
-  .homes li { grid-template-columns: 220px 1fr; gap: 20px; align-items: baseline; }
+  .homes { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 960px) {
@@ -683,11 +616,12 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
   .stage-note { margin: 0; padding: 0; }
   .mascot-row { grid-column: 1 / -1; margin: 22px auto 0; }
 
-  .steps { grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .proof-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .homes { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (min-width: 1180px) {
+  .homes { grid-template-columns: repeat(5, 1fr); }
   .mood-grid {
     grid-auto-flow: row;
     grid-template-columns: repeat(5, 1fr);

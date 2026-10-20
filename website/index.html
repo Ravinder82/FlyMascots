@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlyMascots — give your project a mascot that feels alive</title>
-<meta name="description" content="An agent skill that takes a mascot from an idea, an image or a MascotForge export to a character that breathes, blinks and changes mood with your app — measured and checked before you ever see it. Five moods, five platforms, MIT.">
+<title>FlyMascots — give your app a mascot that feels alive</title>
+<meta name="description" content="An agent skill that makes mascots with many moods — from an idea or an image. It designs the character, rigs it, renders it, and checks it before you ever see it. Five moods, five platforms, MIT.">
 <meta name="theme-color" content="#F3F6F5">
 <meta property="og:type" content="website">
-<meta property="og:title" content="FlyMascots — give your project a mascot that feels alive">
-<meta property="og:description" content="Five moods, one word each, checked every run. A mascot that moves like it means it.">
+<meta property="og:title" content="FlyMascots — give your app a mascot that feels alive">
+<meta property="og:description" content="An agent skill that makes mascots with many moods — from an idea or an image.">
 <meta property="og:image" content="assets/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FlyMascots — give your project a mascot that feels alive">
+<meta name="twitter:title" content="FlyMascots — give your app a mascot that feels alive">
 <meta name="twitter:image" content="assets/og.png">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
@@ -28,9 +28,10 @@
   </a>
   <nav class="nav-links" aria-label="Sections">
     <a href="#demo">Demo</a>
-    <a href="#moods">Moods</a>
+    <a href="#moods">Cast</a>
+    <a href="#how">How</a>
+    <a href="#platforms">Platforms</a>
     <a href="#film">Film</a>
-    <a href="#proof">Proof</a>
   </nav>
   <div class="nav-actions">
     <button class="theme" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Theme">
@@ -45,9 +46,9 @@
 <!-- ───────────────────────── hero ───────────────────────── -->
 <section class="hero" id="top" data-capture="hero">
   <div class="hero-copy">
-    <h1 class="hero-anim">Give your project a mascot that feels alive.</h1>
-    <p class="lede hero-anim">It breathes, blinks and changes mood as your app
-      changes state — five moods, one word each, checked before you ever see it.</p>
+    <h1 class="hero-anim">Give your App a mascot that feels alive.</h1>
+    <p class="lede hero-anim">An agent skill that makes mascots with many
+      moods — from an idea or an image.</p>
     <div class="cta hero-anim">
       <button class="cmd" type="button" data-copy="npx skills add Ravinder82/FlyMascots">
         <code>npx skills add Ravinder82/FlyMascots</code>
@@ -100,41 +101,29 @@
   </div>
 </section>
 
-<!-- ───────────────────────── facts ───────────────────────── -->
-<section class="strip" data-capture="strip" aria-label="At a glance">
-  <div class="strip-item"><b>5</b><span>moods</span></div>
-  <div class="strip-item"><b>5</b><span>places it can live</span></div>
-  <div class="strip-item"><b>60</b><span>mood changes checked</span></div>
-  <div class="strip-item"><b>MIT</b><span>free, both skill and package</span></div>
-</section>
-
 <!-- ───────────────────────── how it works ───────────────────────── -->
 <section class="how" id="how" data-capture="how">
-  <h2>Three steps, and the third is a word.</h2>
+  <h2>Two steps, and then it breathes.</h2>
   <ol class="steps">
     <li class="step">
       <span class="num">1</span>
-      <h3>Add the skill</h3>
-      <p>It lives beside your coding agent, ready whenever you want a
-        character in the product.</p>
+      <h3>Add the skills</h3>
+      <p>One command. Both skills land in your project — the pipeline and the
+        studio that sculpts in 3D. No account, no key, nothing to sign.</p>
       <code class="chip">npx skills add Ravinder82/FlyMascots</code>
     </li>
     <li class="step">
       <span class="num">2</span>
       <h3>Bring a mascot</h3>
-      <p>An idea in a sentence, an image you like, or a MascotForge export.
-        The skill builds it into a real, jointed character.</p>
+      <p>Start with an idea or an image. The skill starts building your
+        mascot — the body, the rig, the five moods — and checks it before
+        you ever see it.</p>
       <code class="chip">idea · image · export</code>
     </li>
-    <li class="step">
-      <span class="num">3</span>
-      <h3>Say the word</h3>
-      <p>Your app sets one of five words — <b>idle, working, think,
-        celebrate, sleep</b> — and the mascot does the rest, on any of five
-        platforms.</p>
-      <code class="chip">setMood("working")</code>
-    </li>
   </ol>
+  <p class="how-note">When it's done, your app sets one of five words —
+    <b>idle, working, think, celebrate, sleep</b> — and the mascot does the
+    rest, on any of five platforms.</p>
 </section>
 
 <!-- ───────────────────────── moods ───────────────────────── -->
@@ -254,13 +243,47 @@
   </div>
 </section>
 
+<!-- ───────────────────────── platforms ───────────────────────── -->
+<section class="platforms" data-capture="platforms">
+  <h2>It ships where your app lives.</h2>
+  <p class="section-lede">One character, one set of five words, five places to
+    put it. The adapters are already written — pick the one you ship to.</p>
+  <ul class="homes">
+    <li>
+      <b>Website</b>
+      <span>Three.js, in the page — the hero above</span>
+      <em>One script tag, one canvas, one <code>setMood()</code>.</em>
+    </li>
+    <li>
+      <b>macOS &amp; iOS</b>
+      <span>SceneKit</span>
+      <em>SwiftUI and UIKit views, driven from your app state.</em>
+    </li>
+    <li>
+      <b>React Native</b>
+      <span>Expo apps, same five words</span>
+      <em>The same engine, dropped into the view you already have.</em>
+    </li>
+    <li>
+      <b>Static pages</b>
+      <span>blogs and docs, one file</span>
+      <em>No build step — an animated embed that weighs nothing.</em>
+    </li>
+    <li>
+      <b>Electron</b>
+      <span>desktop apps, same engine</span>
+      <em>A live mascot in the corner of your window.</em>
+    </li>
+  </ul>
+</section>
+
 <!-- ───────────────────────── film ───────────────────────── -->
 <section class="film" id="film" data-capture="film">
   <h2>The whole thing, in twenty-four seconds.</h2>
   <div class="film-frame">
     <video id="reel" playsinline loop preload="metadata"
       poster="assets/launch-poster.png" width="1600" height="900"
-      aria-label="Twenty-four second launch film — the live page, the five moods, verification and install">
+      aria-label="Twenty-four second launch film — the character, the five moods, the two steps and the install">
       <source src="media/launch-16x9.mp4" type="video/mp4">
     </video>
     <button class="play" id="playBtn" type="button" aria-label="Play the film">
@@ -268,51 +291,6 @@
       <span class="play-txt">Play · 24 s</span>
     </button>
   </div>
-</section>
-
-<!-- ───────────────────────── platforms ───────────────────────── -->
-<section class="platforms" data-capture="platforms">
-  <h2>It ships where your app lives.</h2>
-  <ul class="homes">
-    <li><b>Website</b><span>Three.js, in the page — the hero above</span></li>
-    <li><b>macOS &amp; iOS</b><span>SceneKit</span></li>
-    <li><b>React Native</b><span>Expo apps, same five words</span></li>
-    <li><b>Static pages</b><span>blogs and docs, one file</span></li>
-    <li><b>Electron</b><span>desktop apps, same engine</span></li>
-  </ul>
-</section>
-
-<!-- ───────────────────────── proof ───────────────────────── -->
-<section class="proof" id="proof" data-capture="proof">
-  <h2>It checks itself before you see it.</h2>
-  <p class="proof-lede">Not “looks right to me.” Every run ends with the
-    numbers below asserted, and all sixty mood changes checked for a body
-    that holds together.</p>
-
-  <div class="proof-grid">
-    <div class="proof-cell"><b>0.440</b><span>goggle drop — the working pose</span></div>
-    <div class="proof-cell"><b>−0.780</b><span>arm angle — the thinking pose</span></div>
-    <div class="proof-cell"><b>0.080</b><span>eye height — the sleeping pose</span></div>
-    <div class="proof-cell"><b>0.167</b><span>hop lift — the celebrating pose</span></div>
-    <div class="proof-cell"><b>60</b><span>rapid mood changes, all finite, none vanish</span></div>
-    <div class="proof-cell"><b>1</b><span>process diagram left behind — open it and follow the run</span></div>
-  </div>
-
-  <p class="proof-src">Read the numbers yourself:
-    <code>skills/flymascots/references/verification.md</code></p>
-</section>
-
-<!-- ───────────────────────── pipeline ───────────────────────── -->
-<section class="pipeline" data-capture="pipeline">
-  <h2>It leaves a diagram behind.</h2>
-  <p class="section-lede">Open it in a browser and follow what the run did,
-    step by step — the same kind of page you are on right now.</p>
-  <picture class="pipe-frame">
-    <source media="(prefers-color-scheme: dark)" srcset="assets/pipeline-dark.png">
-    <img src="assets/pipeline-light.png" width="1912" height="1824"
-      alt="The mascot pipeline diagram: idea, rig, animate, mood sync — each run leaves one behind"
-      loading="lazy">
-  </picture>
 </section>
 
 <!-- ───────────────────────── install ───────────────────────── -->
@@ -329,8 +307,8 @@
       <code>npm i flymascots</code>
       <button class="term-copy" type="button" data-copy="npm i flymascots">Copy</button>
     </div>
-    <p class="term-note">MIT · v1.2.0 · the package carries the skill, the
-      pipeline diagram and the README</p>
+    <p class="term-note">MIT · v1.2.0 · the package carries the skill and the
+      README</p>
   </div>
 </section>
 
@@ -355,15 +333,15 @@
   </details>
   <details class="qa">
     <summary>How do I know it actually works?</summary>
-    <p>Every run asserts the pose numbers above, checks all sixty mood
-      changes for a body that holds together, and leaves you a diagram of
-      exactly what happened.</p>
+    <p>Every run ends with a check: the character is rendered, the five moods
+      are measured against the pose table, and the whole thing is verified
+      before it is handed back. If a number is off, the run says so.</p>
   </details>
   <details class="qa">
     <summary>What is the mascot on this page?</summary>
     <p>Two of them. Axo — a demo character built in code with the skill
       itself — and Nicklas, a sculpt exported straight out of the studio.
-      Every loop, frame and number on this page comes from those builds;
+      Every loop and frame on this page comes from those builds;
       your mascot will be yours.</p>
   </details>
 </section>

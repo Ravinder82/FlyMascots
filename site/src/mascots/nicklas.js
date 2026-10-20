@@ -70,6 +70,7 @@ const EYES = [21, 22, 23, 24, 25, 26, 27, 28];
 const HEAD = [16, 17, 18, 19, 20, 29, 30, 31, 36, 37, 38, 39, 40, 41];
 const RIGHT_ARM = [34, 42, 43, 44, 45, 46, 47, 48, 49];
 const LEFT_ARM = [35, 50, 51, 52];
+const SPARKLES = [53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64];
 
 /* Pivot anchors in model space (the sculpt stands on y = -1.59). */
 const NECK = new THREE.Vector3(0, 0.52, 0.04);
@@ -243,6 +244,34 @@ export function buildNicklasRig(source) {
     material.needsUpdate = true;
   }
 
+  /* The sculpt ships its sparkles as black diamonds — on a pale page they
+   * read as flecks of dirt rather than glitter. They were meant to be gold,
+   * so give them the material the studio had in mind, and let them drift. */
+  const sparkleMaterial = new THREE.MeshStandardMaterial({
+    color: 0xfbbf24,
+    emissive: 0xffc94d,
+    emissiveIntensity: 1.3,
+    metalness: 0.9,
+    roughness: 0.22,
+    transparent: true,
+    opacity: 0.92,
+  });
+  const sparkleHome = [];
+  const sparkleCentre = new THREE.Vector3();
+  for (const index of SPARKLES) {
+    const mesh = meshes[index];
+    if (!mesh) continue;
+    mesh.material = sparkleMaterial;
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
+    // Park them under the scene root so their positions are model space,
+    // whatever the sculpt's own node tree looked like.
+    reparent(mesh, sceneRoot, new THREE.Vector3());
+    sparkleHome.push({ mesh, x: mesh.position.x, y: mesh.position.y, z: mesh.position.z });
+    sparkleCentre.add(mesh.position);
+  }
+  if (sparkleHome.length) sparkleCentre.divideScalar(sparkleHome.length);
+
   const state = {
     boopVelocity: 0,
     boopOffset: 0,
@@ -279,6 +308,25 @@ export function buildNicklasRig(source) {
     }
     const blinkScale = state.isBlinking ? 0.08 : 1;
     eyesPivot.scale.y += (blinkScale - eyesPivot.scale.y) * Math.min(1, d * 22);
+
+    // Sparkles: a slow orbit round the sculpt, each one twinkling on its
+    // own beat so the set never pulses in unison.
+    if (sparkleHome.length) {
+      const orbit = time * 0.22;
+      const cos = Math.cos(orbit);
+      const sin = Math.sin(orbit);
+      for (let i = 0; i < sparkleHome.length; i++) {
+        const s = sparkleHome[i];
+        const dx = s.x - sparkleCentre.x;
+        const dz = s.z - sparkleCentre.z;
+        s.mesh.position.set(
+          sparkleCentre.x + dx * cos - dz * sin,
+          s.y + Math.sin(time * 1.25 + i * 0.9) * 0.045,
+          sparkleCentre.z + dx * sin + dz * cos,
+        );
+      }
+      sparkleMaterial.emissiveIntensity = 1.15 + Math.sin(time * 2.1) * 0.3;
+    }
 
     // Boop impulse (a small squash-and-stretch pop).
     state.boopOffset += state.boopVelocity;
