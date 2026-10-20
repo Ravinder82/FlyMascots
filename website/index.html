@@ -139,57 +139,118 @@
 
 <!-- ───────────────────────── moods ───────────────────────── -->
 <section class="moods" id="moods" data-capture="moods">
-  <h2>Five faces. One word each.</h2>
-  <p class="section-lede">Real footage of the character, caught mid-mood —
+  <h2>Ten faces. One word each.</h2>
+  <p class="section-lede">Real footage of both characters, caught mid-mood —
     breathing, blinking, hopping, sleeping.</p>
-  <p class="moods-who">Footage of <b id="moodsWho">Axo</b> — pick another character above and these follow it.</p>
 
-  <div class="mood-grid">
-    <figure class="mood-tile" data-mood="idle">
-      <video class="mood-loop" muted loop playsinline preload="none"
-        poster="assets/mood-idle-poster.png" width="560" height="700"
-        aria-label="The mascot resting, breathing and blinking">
-        <source src="media/moods/idle.webm" type="video/webm" data-ext="webm">
-        <source src="media/moods/idle.mp4" type="video/mp4" data-ext="mp4">
-      </video>
-      <figcaption><b>idle</b><span>resting, breathing, blinking</span></figcaption>
-    </figure>
-    <figure class="mood-tile" data-mood="working">
-      <video class="mood-loop" muted loop playsinline preload="none"
-        poster="assets/mood-working-poster.png" width="560" height="700"
-        aria-label="The mascot pulling its goggles down to work">
-        <source src="media/moods/working.webm" type="video/webm" data-ext="webm">
-        <source src="media/moods/working.mp4" type="video/mp4" data-ext="mp4">
-      </video>
-      <figcaption><b>working</b><span>goggles down, head down</span></figcaption>
-    </figure>
-    <figure class="mood-tile" data-mood="think">
-      <video class="mood-loop" muted loop playsinline preload="none"
-        poster="assets/mood-think-poster.png" width="560" height="700"
-        aria-label="The mascot thinking, chin in hand">
-        <source src="media/moods/think.webm" type="video/webm" data-ext="webm">
-        <source src="media/moods/think.mp4" type="video/mp4" data-ext="mp4">
-      </video>
-      <figcaption><b>think</b><span>chin in hand, thinking it over</span></figcaption>
-    </figure>
-    <figure class="mood-tile" data-mood="celebrate">
-      <video class="mood-loop" muted loop playsinline preload="none"
-        poster="assets/mood-celebrate-poster.png" width="560" height="700"
-        aria-label="The mascot celebrating with a hop and a wave">
-        <source src="media/moods/celebrate.webm" type="video/webm" data-ext="webm">
-        <source src="media/moods/celebrate.mp4" type="video/mp4" data-ext="mp4">
-      </video>
-      <figcaption><b>celebrate</b><span>a hop and a wave</span></figcaption>
-    </figure>
-    <figure class="mood-tile" data-mood="sleep">
-      <video class="mood-loop" muted loop playsinline preload="none"
-        poster="assets/mood-sleep-poster.png" width="560" height="700"
-        aria-label="The mascot asleep, eyes closed, breathing slowly">
-        <source src="media/moods/sleep.webm" type="video/webm" data-ext="webm">
-        <source src="media/moods/sleep.mp4" type="video/mp4" data-ext="mp4">
-      </video>
-      <figcaption><b>sleep</b><span>eyes closed, slow breath</span></figcaption>
-    </figure>
+  <div class="mood-cast" data-mascot="axo">
+    <div class="mood-cast-head">
+      <img class="mood-cast-face" src="assets/mascot-axo.png" alt="" width="44" height="44">
+      <b>Axo</b>
+      <span>the demo character — built in code by the skill itself</span>
+    </div>
+    <div class="mood-grid">
+      <figure class="mood-tile" data-mood="idle">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-idle-poster.png" width="560" height="700"
+          aria-label="Axo resting, breathing and blinking">
+          <source src="media/moods/idle.webm" type="video/webm">
+          <source src="media/moods/idle.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>idle</b><span>resting, breathing, blinking</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="working">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-working-poster.png" width="560" height="700"
+          aria-label="Axo pulling its goggles down to work">
+          <source src="media/moods/working.webm" type="video/webm">
+          <source src="media/moods/working.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>working</b><span>goggles down, head down</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="think">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-think-poster.png" width="560" height="700"
+          aria-label="Axo thinking, chin in hand">
+          <source src="media/moods/think.webm" type="video/webm">
+          <source src="media/moods/think.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>think</b><span>chin in hand, thinking it over</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="celebrate">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-celebrate-poster.png" width="560" height="700"
+          aria-label="Axo celebrating with a hop and a wave">
+          <source src="media/moods/celebrate.webm" type="video/webm">
+          <source src="media/moods/celebrate.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>celebrate</b><span>a hop and a wave</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="sleep">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-sleep-poster.png" width="560" height="700"
+          aria-label="Axo asleep, eyes closed, breathing slowly">
+          <source src="media/moods/sleep.webm" type="video/webm">
+          <source src="media/moods/sleep.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>sleep</b><span>eyes closed, slow breath</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="mood-cast" data-mascot="nicklas">
+    <div class="mood-cast-head">
+      <img class="mood-cast-face" src="assets/mascot-nicklas.png" alt="" width="44" height="44">
+      <b>Nicklas</b>
+      <span>a 24K gold sculpt, exported straight out of the studio</span>
+    </div>
+    <div class="mood-grid">
+      <figure class="mood-tile" data-mood="idle">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-nicklas-idle-poster.png" width="560" height="700"
+          aria-label="Nicklas resting, breathing and blinking">
+          <source src="media/moods/nicklas-idle.webm" type="video/webm">
+          <source src="media/moods/nicklas-idle.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>idle</b><span>resting, breathing, blinking</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="working">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-nicklas-working-poster.png" width="560" height="700"
+          aria-label="Nicklas leaning into the work">
+          <source src="media/moods/nicklas-working.webm" type="video/webm">
+          <source src="media/moods/nicklas-working.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>working</b><span>head down, hands busy</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="think">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-nicklas-think-poster.png" width="560" height="700"
+          aria-label="Nicklas thinking it over">
+          <source src="media/moods/nicklas-think.webm" type="video/webm">
+          <source src="media/moods/nicklas-think.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>think</b><span>chin in hand, thinking it over</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="celebrate">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-nicklas-celebrate-poster.png" width="560" height="700"
+          aria-label="Nicklas celebrating with a hop and a wave">
+          <source src="media/moods/nicklas-celebrate.webm" type="video/webm">
+          <source src="media/moods/nicklas-celebrate.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>celebrate</b><span>a hop and a wave</span></figcaption>
+      </figure>
+      <figure class="mood-tile" data-mood="sleep">
+        <video class="mood-loop" muted loop playsinline preload="none"
+          poster="assets/mood-nicklas-sleep-poster.png" width="560" height="700"
+          aria-label="Nicklas asleep, eyes closed, breathing slowly">
+          <source src="media/moods/nicklas-sleep.webm" type="video/webm">
+          <source src="media/moods/nicklas-sleep.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>sleep</b><span>eyes closed, slow breath</span></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -279,8 +340,8 @@
   <details class="qa">
     <summary>Is the mascot above a video?</summary>
     <p>No — it is the real viewer running in this page, in 3D, answering your
-      clicks. The five faces below are real footage of that same viewer, and
-      the only proper video is the twenty-four second film.</p>
+      clicks. The faces below are real footage of that same viewer, both
+      characters, and the only proper video is the twenty-four second film.</p>
   </details>
   <details class="qa">
     <summary>Do I have to draw anything?</summary>

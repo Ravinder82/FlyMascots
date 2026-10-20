@@ -371,11 +371,27 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.2; }
 
 .moods .section-lede { margin-bottom: 0; }
 
-.moods-who {
-  font-family: var(--mono); font-size: 12.5px;
-  color: var(--ink-faint); margin: 10px 0 0;
+/* one block per character — the cast, then their five faces */
+.mood-cast + .mood-cast { margin-top: 34px; }
+
+.mood-cast-head {
+  display: flex; align-items: center; gap: 12px;
+  margin: 34px 0 0;
 }
-.moods-who b { color: var(--mint-deep); font-weight: 500; }
+.mood-cast-face {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: var(--tile);
+  object-fit: contain;
+  box-shadow: var(--shadow);
+}
+.mood-cast-head b {
+  font-size: 19px; font-weight: 600; letter-spacing: -.01em;
+  transition: color .18s ease;
+}
+.mood-cast-head span { font-size: 13.5px; color: var(--ink-faint); }
+.mood-cast.on .mood-cast-head b { color: var(--mint-deep); }
+.mood-cast.on .mood-cast-face { box-shadow: 0 0 0 2px var(--mint-deep), var(--shadow); }
 
 .mood-grid {
   display: grid;
