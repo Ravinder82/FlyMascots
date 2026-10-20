@@ -12,7 +12,14 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
-/* Studio config that produced the sculpt (MascotForge / img2threejs v7). */
+/* The studio config that produced the sculpt (MascotForge / img2threejs v7) —
+ * the source record, kept for reference and for the next re-export.
+ *
+ * Its colour fields are NOT applied at runtime. The GLB carries its own
+ * materials, so the palette on screen is the sculpt's, not this file's —
+ * `suitColor: '#470000'` here does not mean the suit renders dark red.
+ * Only the animation/lighting numbers below are actually read; the look is
+ * the sculpt's. */
 export const NICKLAS_CONFIG = {
   name: 'Nicklas — 24K Royal Gold St. Nick',
   suitColor: '#470000',
