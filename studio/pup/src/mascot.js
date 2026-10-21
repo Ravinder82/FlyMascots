@@ -675,8 +675,9 @@ export function buildPup(options = {}) {
     color: new THREE.Color(PALETTE.nose),
     roughness: 0.66,
     metalness: 0,
-    clearcoat: 0.05,
-    clearcoatRoughness: 0.7,
+    // wet leathery nose: rough base + a clearcoat sheen sitting on top of it
+    clearcoat: 0.45,
+    clearcoatRoughness: 0.35,
     envMap,
     envMapIntensity: 0.7,
   });
@@ -976,6 +977,7 @@ export function buildPup(options = {}) {
   }
   skullGeo.scale(SPEC.head.rx, SPEC.head.ry, SPEC.head.rz);
   const skull = new THREE.Mesh(skullGeo, mats.furPlain);
+  skull.name = 'skull';
   skull.castShadow = true;
   skull.receiveShadow = true;
   head.add(skull);
@@ -1639,11 +1641,24 @@ export function buildPup(options = {}) {
   // flat variant. Both get the same strand model so the coat reads as one pelt.
   const shellVC = makeFurShellMaterial(mats.fur, { length: 0.028 });
   const shellFlat = makeFurShellMaterial(mats.furPlain, { length: 0.016 });
-  const SHELL_FUR = false;
+  // The skull needs a face mask: unmasked socket strands grow straight over the
+  // eye rims and speckle them (the "shadow on shells = crust" trap, restated).
+  // Fur length fades to zero within 0.07 of each eye centre, fully back by 0.17.
+  const shellHead = makeFurShellMaterial(mats.furPlain, {
+    length: 0.016,
+    mask: {
+      a: new THREE.Vector3(SPEC.eye.x, SPEC.eye.y, SPEC.eye.z),
+      b: new THREE.Vector3(-SPEC.eye.x, SPEC.eye.y, SPEC.eye.z),
+      r: 0.17,
+      feather: 0.10,
+    },
+  });
+  const SHELL_FUR = true;
   if (SHELL_FUR) {
     root.traverse((o) => {
       if (!o.isMesh || o.isInstancedMesh || o.userData.__shellified || o.userData.noFur) return;
-      if (o.material === mats.fur) shellify(o, shellVC);
+      if (o.name === 'skull') shellify(o, shellHead);
+      else if (o.material === mats.fur) shellify(o, shellVC);
       else if (o.material === mats.furPlain) shellify(o, shellFlat);
     });
   }

@@ -42,7 +42,7 @@ float furNoise(vec3 x){
  * `length` is in world units and is divided by the mesh's world scale at build
  * time, so a scaled ear still gets the right pile height.
  */
-export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.comb } = {}) {
+export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.comb, mask = null } = {}) {
   const mat = base.clone();
   mat.alphaTest = 0.5;
   mat.transparent = false;
@@ -57,6 +57,12 @@ export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.com
     uComb: { value: comb.clone() },
     uRootTint: { value: FUR.rootTint.clone() },
     uTipTint: { value: FUR.tipTint.clone() },
+    // face mask: pile length fades to zero near two object-space points, so
+    // socket strands stop speckling the eyes (radius 0 disables the fade)
+    uMaskA: { value: mask ? mask.a.clone() : new THREE.Vector3() },
+    uMaskB: { value: mask ? mask.b.clone() : new THREE.Vector3() },
+    uMaskR: { value: mask ? mask.r : 0 },
+    uMaskFeather: { value: mask ? (mask.feather ?? 0.08) : 0 },
   };
 
   mat.onBeforeCompile = (shader) => {
@@ -69,6 +75,8 @@ export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.com
          attribute float aShell;
          uniform float uFurLen;
          uniform vec3 uComb;
+         uniform vec3 uMaskA, uMaskB;
+         uniform float uMaskR, uMaskFeather;
          varying float vH;
          varying vec3 vRest;`
       )
@@ -76,9 +84,15 @@ export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.com
         '#include <project_vertex>',
         `
          float h = aShell;
+         float maskK = 1.0;
+         if (uMaskR > 0.0) {
+           float inner = uMaskR - uMaskFeather;
+           maskK  = smoothstep(inner, uMaskR, distance(position, uMaskA));
+           maskK *= smoothstep(inner, uMaskR, distance(position, uMaskB));
+         }
          vec3 furN = normalize(objectNormal);
-         transformed += furN * (h * uFurLen)
-                      + uComb * (h * h * uFurLen * 0.55);
+         transformed += furN * (h * uFurLen * maskK)
+                      + uComb * (h * h * uFurLen * 0.55 * maskK);
          vH = h;
          vRest = position;
          #include <project_vertex>`
@@ -119,10 +133,10 @@ export function makeFurShellMaterial(base, { length = FUR.length, comb = FUR.com
       );
   };
 
-  // colour and plain variants share this function body; without an explicit
-  // key three.js caches them together and one variant gets the wrong shader
+  // colour, plain and masked variants share this function body; without an
+  // explicit key three.js caches them together and one gets the wrong shader
   mat.customProgramCacheKey = () =>
-    `fur-${length.toFixed(4)}-${base.vertexColors ? 'vc' : 'flat'}`;
+    `fur-${length.toFixed(4)}-${base.vertexColors ? 'vc' : 'flat'}-${mask ? 'm' : '-'}`;
 
   return mat;
 }
@@ -151,6 +165,7 @@ export function shellify(mesh, material, shells = FUR.shells) {
   const under = mesh.material.clone();
   under.color = under.color ? under.color.clone().multiplyScalar(0.90) : under.color;
   if (under.vertexColors) under.color = new THREE.Color(0x6b5442);
+  mesh.userData.__coat = mesh.material;
   mesh.material = under;
 
   const inst = new THREE.InstancedMesh(geo, material, shells);

@@ -55,7 +55,7 @@ if (TONEMAP === 'aces') {
   renderer.toneMappingExposure = 0.72;
 }
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0x000000, 0);
 
 if (params.get('alpha') === '1') {
@@ -415,6 +415,7 @@ window.SunnyStage = {
     // reads the cached matrix, so both the value and the matrix have to be
     // frozen for the duration of the export.
     const thawed = [];
+    const coats = [];
     pup.root.traverse((o) => {
       if (o.name === 'eyeL' || o.name === 'eyeR') {
         o.scale.y = 1;
@@ -422,9 +423,31 @@ window.SunnyStage = {
         o.matrixAutoUpdate = false;
         thawed.push(o);
       }
+      // The shell clouds only exist because of a custom shader the GLB format
+      // cannot carry: exporting them would ship 28 coincident copies per mesh
+      // that render as a solid crust anywhere else. Hide them (onlyVisible)
+      // and hand back the undarkened coat material for the bake.
+      if (o.isInstancedMesh && o.name.endsWith('Shells')) {
+        o.visible = false;
+        thawed.push(o);
+      } else if (o.userData.__coat) {
+        coats.push([o, o.material, o.userData.__coat]);
+        o.material = o.userData.__coat;
+        // GLTFExporter JSON-serializes userData into the GLB — a whole
+        // THREE.Material in there bloats the file by ~20 MB. Drop it for
+        // the duration of the export, restore after.
+        delete o.userData.__coat;
+      }
     });
     const glb = await exporter.parseAsync(pup.root, { binary: true, onlyVisible: true });
-    for (const o of thawed) o.matrixAutoUpdate = true;
+    for (const o of thawed) {
+      o.matrixAutoUpdate = true;
+      o.visible = true;
+    }
+    for (const [o, mat, orig] of coats) {
+      o.material = mat;
+      o.userData.__coat = orig;
+    }
     const blob = new Blob([glb], { type: 'model/gltf-binary' });
     return await new Promise((res) => {
       const r = new FileReader();
