@@ -29,6 +29,17 @@ Take a mascot from nothing — an idea, a static image, or a MascotForge Pro exp
 8. **MANDATORY — process diagram.** Produce an interactive HTML workflow (or architecture) diagram of THIS project's mascot pipeline — intake → asset → integration → animation → verification → sync — using whatever diagram tooling is installed (invoke a workflow-diagram skill if one is available), then deliver the clickable HTML link. Regenerate whenever the pipeline changes. The diagram is the user's follow-along document; the skill run is not complete without it.
 9. **Iterate to the quality bar.** The user's reference images are the contract ("clone it pixel by pixel same"). Each round: render → compare against the reference → fix one root cause → re-run the harness. Known traps already solved live in `references/daypilot-case-study.md`: arm swinging inside the torso, goggles clipping the head dome, wrong matrix convention, stage light washing out baked colors (sample the reference render, do not trust baked hex).
 
+## Accelerator toolchain (installed on this machine)
+
+Skip blank-sheet sculpting when a faster route fits; keep the quality gates either way.
+
+- **`img2threejs` skill** (canonical checkout `~/.config/opencode/skills/img2threejs`): staged sculpt gates + vision self-correction — Route B's 8-pass mirrors it; prefer its `forge/next.py` state machine when reconstructing from an image.
+- **trellis-mac** (`~/Developer/trellis-mac`, venv via `setup.sh`): image → ~400K-vert PBR GLB in ~5 min on MPS. Use as sculpt base/target for Route B or a quick mesh factory. One-time: `hf auth login` + request access to facebook/dinov3-vitl16-pretrain-lvd1689m and briaai/RMBG-2.0; first run downloads ~15 GB weights. `source .venv/bin/activate && python generate.py img.png --output out.glb`.
+- **MCP for Blender** (`tools["blender"]` in OpenCode; addon live in Blender 5.2): drive the user's Blender for fur/groom studies, Cycles reference renders, GLB cleanup/decimation. Headless: `blender -b --python script.py`.
+- **Make-It-Animatable** (`~/Developer/Make-It-Animatable/.venv`): mesh → auto-rig (joints + skinning weights, CVPR 2025) before building pose tables. Checkpoints: `hf download jasongzy/Make-It-Animatable --include 'output/best/new/**' 'data/**' --local-dir .`.
+
+Order for a new mascot: sheet ratios → trellis-mac mesh (optional base) → img2threejs/AI-3d-mascot-studio gates → Make-It-Animatable rig (optional) → springs + studio. Verify every stage with the render harness; accelerators replace typing, not gates.
+
 ## Guardrails
 
 - Assert eulers in debug/test output — SceneKit's `simdRotation` getter returns misleading values on some rigs.
