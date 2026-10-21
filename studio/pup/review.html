@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunny — the golden pup · design review</title>
+<style>
+  :root{
+    --porcelain:#F3F6F5; --snow:#FFFFFF; --pine:#10201B; --mint:#1FA893;
+    --mint-deep:#0E7A6B; --tile:#F7F2E9; --line:#DCE3DF; --muted:#5C6B64;
+    --gold:#C8823A; --gold-lt:#EFC489; --emerald:#1B6B4E;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--porcelain);color:var(--pine);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased}
+  a{color:var(--mint-deep)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---------- header ---------- */
+  header{padding:56px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--mint-deep);display:flex;gap:10px;align-items:center}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--mint)}
+  h1{font-size:clamp(34px,5.2vw,62px);line-height:1.02;letter-spacing:-.035em;
+    margin:18px 0 0;font-weight:760}
+  h1 em{font-style:normal;color:var(--gold)}
+  .lede{max-width:62ch;color:var(--muted);font-size:17px;line-height:1.62;margin:18px 0 0}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .tag{font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+    padding:8px 11px;border-radius:999px;background:var(--snow);border:1px solid var(--line);
+    color:var(--muted)}
+  .tag.warn{border-color:#E4CBA6;background:#FDF6EA;color:#8A5A18}
+  .tag.live{border-color:#BFE6DE;background:#EAF8F4;color:var(--mint-deep)}
+
+  /* ---------- sections ---------- */
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  .shead{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .num{font:600 11px/1 var(--mono);color:var(--mint);letter-spacing:.1em}
+  h2{font-size:clamp(21px,2.6vw,30px);letter-spacing:-.02em;margin:0;font-weight:700}
+  .sub{color:var(--muted);font-size:15px;line-height:1.6;max-width:74ch;margin:8px 0 26px}
+
+  /* ---------- hero ---------- */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
+  .hero .frame{background:linear-gradient(170deg,#FFFDF8,#F1EADC);border-radius:22px;
+    border:1px solid #E7DFD0;padding:8px;box-shadow:0 24px 60px -34px rgba(16,32,27,.45)}
+  .hero img{width:100%;display:block;border-radius:16px}
+  .facts{border-top:1px solid var(--line)}
+  .fact{display:flex;justify-content:space-between;gap:18px;padding:14px 0;
+    border-bottom:1px solid var(--line);font-size:14px}
+  .fact span{color:var(--muted)}
+  .fact b{font:600 13px/1.4 var(--mono);text-align:right}
+
+  /* ---------- profile chart ---------- */
+  .chart{display:flex;align-items:flex-end;gap:3px;height:150px;padding:14px 16px 0;
+    background:var(--snow);border:1px solid var(--line);border-radius:16px}
+  .chart div{flex:1;background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+    border-radius:3px 3px 0 0;position:relative;min-height:2px;transition:filter .2s}
+  .chart div:hover{filter:brightness(1.12)}
+  .chart div::after{content:attr(data-v);position:absolute;bottom:calc(100% + 5px);left:50%;
+    transform:translateX(-50%);font:600 9px/1 var(--mono);color:var(--muted);opacity:0;
+    transition:opacity .2s;white-space:nowrap}
+  .chart div:hover::after{opacity:1}
+  .chart-axis{display:flex;justify-content:space-between;font:600 10px/1 var(--mono);
+    color:var(--muted);padding:8px 16px 0}
+
+  /* ---------- angle strip ---------- */
+  .strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:22px}
+  .strip figure{margin:0;background:var(--snow);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden}
+  .strip img{width:100%;display:block;aspect-ratio:1;object-fit:cover}
+  .strip figcaption{font:600 10px/1 var(--mono);text-transform:uppercase;
+    letter-spacing:.08em;color:var(--muted);padding:9px 10px;border-top:1px solid var(--line)}
+
+  /* ---------- pipeline ---------- */
+  .pipe{background:var(--snow);border:1px solid var(--line);border-radius:20px;
+    padding:22px 22px 8px;overflow:hidden}
+  .rail{position:relative;display:flex;justify-content:space-between;gap:6px;padding:26px 4px 10px}
+  .rail::before{content:"";position:absolute;left:26px;right:26px;top:40px;height:2px;
+    background:var(--line);z-index:0}
+  .rail .fill{position:absolute;left:26px;top:40px;height:2px;background:var(--mint);
+    z-index:1;transition:width .45s cubic-bezier(.4,0,.2,1)}
+  .node{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+    gap:10px;background:none;border:0;cursor:pointer;padding:0;width:12.5%;font-family:inherit}
+  .dot{width:30px;height:30px;border-radius:50%;background:var(--snow);
+    border:2px solid var(--line);display:grid;place-items:center;
+    font:700 11px/1 var(--mono);color:var(--muted);transition:all .25s}
+  .node:hover .dot{border-color:var(--mint);color:var(--mint-deep)}
+  .node[aria-selected="true"] .dot{background:var(--mint);border-color:var(--mint);
+    color:#fff;box-shadow:0 0 0 5px rgba(31,168,147,.16);transform:scale(1.08)}
+  .nlabel{font:600 9.5px/1.25 var(--mono);text-transform:uppercase;letter-spacing:.05em;
+    color:var(--muted);text-align:center}
+  .node[aria-selected="true"] .nlabel{color:var(--pine)}
+  .panel{margin-top:14px;border-top:1px solid var(--line);padding:24px 4px 26px;
+    display:grid;grid-template-columns:1fr 300px;gap:30px;min-height:190px}
+  .panel h3{margin:0 0 8px;font-size:19px;letter-spacing:-.01em}
+  .panel p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.68;max-width:62ch}
+  .panel .note{margin-top:16px;padding:12px 14px;border-radius:10px;background:var(--tile);
+    border-left:2px solid var(--gold);font-size:13px;line-height:1.55;color:#6B4A1E}
+  .panel .note b{color:#8A5A18}
+  .stats{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;align-content:start}
+  .stat{background:var(--snow);padding:12px 14px}
+  .stat span{display:block;font:600 9.5px/1 var(--mono);text-transform:uppercase;
+    letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+  .stat b{font:600 13px/1.35 var(--mono);color:var(--pine)}
+
+  /* ---------- sheets ---------- */
+  .sheet{background:var(--snow);border:1px solid var(--line);border-radius:16px;
+    padding:10px;overflow:hidden}
+  .sheet img{width:100%;display:block;border-radius:8px}
+  .sheet + .sheet{margin-top:14px}
+
+  /* ---------- scorecard ---------- */
+  .score{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .srow{background:var(--snow);padding:18px 20px}
+  .srow .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    margin-bottom:10px}
+  .srow h4{margin:0;font-size:14px;font-weight:650}
+  .srow .val{font:600 11px/1 var(--mono);color:var(--muted)}
+  .bar{height:6px;border-radius:99px;background:#EDF1EF;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;
+    background:linear-gradient(90deg,var(--mint),#2BC0A9);width:0;
+    transition:width 1s cubic-bezier(.3,0,.2,1)}
+  .bar.gold i{background:linear-gradient(90deg,var(--gold),#E0A961)}
+  .srow p{margin:10px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
+
+  /* ---------- next ---------- */
+  .next{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--snow);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card .k{font:600 10px/1 var(--mono);color:var(--mint);letter-spacing:.1em;
+    text-transform:uppercase;margin-bottom:10px}
+  .card h4{margin:0 0 6px;font-size:15px}
+  .card p{margin:0;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px;
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--pine);color:#fff;
+    text-decoration:none;padding:12px 18px;border-radius:999px;font:600 13px/1 var(--sans);
+    transition:transform .18s,background .18s}
+  .btn:hover{transform:translateY(-1px);background:#1B3A31}
+  .btn.ghost{background:var(--snow);color:var(--pine);border:1px solid var(--line)}
+  @media (max-width:860px){
+    .hero,.panel{grid-template-columns:1fr}
+    .strip{grid-template-columns:repeat(2,1fr)}
+    .score{grid-template-columns:1fr}
+    .next{grid-template-columns:1fr}
+    .rail{flex-wrap:wrap;gap:14px}
+    .rail::before,.rail .fill{display:none}
+    .node{width:auto;flex:1 1 70px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">FlyMascots · studio track · route B</div>
+    <h1>Sunny — the <em>golden pup</em></h1>
+    <p class="lede">A procedural, rig-ready mascot sculpted from a single character sheet. Five angles
+      read, seven moods and seven actions rebuilt as live parameters, then assembled into one
+      three-dimensional character you can orbit, boop and pose.</p>
+    <div class="tags">
+      <span class="tag live">Live build v18</span>
+      <span class="tag">5 angles</span>
+      <span class="tag">7 moods</span>
+      <span class="tag">8 poses</span>
+      <span class="tag">142 k triangles</span>
+      <span class="tag warn">Working name — not final</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap hero">
+    <div class="frame">
+      <img src="renders/v19-front.png" alt="Sunny the golden pup, front view">
+    </div>
+    <div>
+      <div class="shead"><span class="num">01</span><h2>The character</h2></div>
+      <p class="sub">Built entirely from code — no mesh imports. Every part is a sculpted primitive
+        with its own proportion constants, so the whole pup can be re-tuned from one spec block.</p>
+      <div class="facts">
+        <div class="fact"><span>Source</span><b>1 sheet · 1536 × 1024</b></div>
+        <div class="fact"><span>Silhouette</span><b>measured, 5 % steps</b></div>
+        <div class="fact"><span>Parts</span><b>64 procedural meshes</b></div>
+        <div class="fact"><span>Rig</span><b>1 root · 7 pivots</b></div>
+        <div class="fact"><span>Runtime</span><b>Three.js · 589 kB bundle</b></div>
+        <div class="fact"><span>Name</span><b>Sunny (placeholder)</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="num">02</span><h2>What the sheet actually says</h2></div>
+    <p class="sub">Rather than eyeballing the proportions, the front view was thresholded off the
+      paper and sampled every 5 % of its height. The two bumps — ears at 20 %, chest at 55 % — and
+      the sharp pinch at 35 % are what set the skull width, the neck and the barrel body.</p>
+    <div class="chart" id="chart"></div>
+    <div class="chart-axis"><span>crown</span><span>ears</span><span>neck</span><span>chest</span><span>paws</span></div>
+    <div class="strip">
+      <figure><img src="renders/ref-front.png" alt=""><figcaption>Front</figcaption></figure>
+      <figure><img src="renders/ref-three-quarter.png" alt=""><figcaption>3/4 front</figcaption></figure>
+      <figure><img src="renders/ref-side.png" alt=""><figcaption>Side</figcaption></figure>
+      <figure><img src="renders/ref-three-quarter-back.png" alt=""><figcaption>3/4 back</figcaption></figure>
+      <figure><img src="renders/ref-back.png" alt=""><figcaption>Back</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="num">03</span><h2>How it was built</h2></div>
+    <p class="sub">Eight passes, each one a gate. Click a stage to see what it changed and what
+      it cost.</p>
+    <div class="pipe">
+      <div class="rail" id="rail">
+        <div class="fill" id="fill"></div>
+      </div>
+      <div class="panel">
+        <div>
+          <h3 id="p-title">Blockout</h3>
+          <p id="p-body"></p>
+          <div class="note" id="p-note"></div>
+        </div>
+        <div class="stats" id="p-stats"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="num">04</span><h2>Expression set</h2></div>
+    <p class="sub">All seven moods from the sheet, driven by springs rather than keyframes — eyes,
+      brows, mouth, tongue, ears and tail all settle with weight.</p>
+    <div class="sheet"><img src="renders/review-moods.png" alt="Seven moods"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="num">05</span><h2>Action set</h2></div>
+    <p class="sub">Each pose re-aims the four limb pivots, the body pitch and the root height, so
+      the same rig reads as sitting, running or mid-air.</p>
+    <div class="sheet"><img src="renders/review-poses.png" alt="Seven poses"></div>
+    <div class="sheet"><img src="renders/review-angles.png" alt="Five angles"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="num">06</span><h2>Honest scorecard</h2></div>
+    <p class="sub">Where this build is strong, and where it still needs another pass. Nothing here
+      is padded — the low scores are the next work items.</p>
+    <div class="score" id="score"></div>
+  </div>
+</section>
+
+<section style="border-bottom:0">
+  <div class="wrap">
+    <div class="shead"><span class="num">07</span><h2>Where it goes next</h2></div>
+    <p class="sub">Nothing is wired into the shipping cast yet — this is the review gate.</p>
+    <div class="next">
+      <div class="card"><div class="k">Your call</div><h4>Name + personality</h4>
+        <p>“Sunny” is a placeholder pulled from the coat colour. One or two lines of character
+          brief would let the moods get specific instead of generic.</p></div>
+      <div class="card"><div class="k">Polish pass</div><h4>Snout, lids, fur</h4>
+        <p>The muzzle is still a soft oval and the eyes want real lids. Surface fur grain and a
+          proper brow ridge are the two biggest remaining wins.</p></div>
+      <div class="card"><div class="k">Ship</div><h4>Into the cast</h4>
+        <p>Add to the mascot registry, mount on the site stage, and record a short mood loop.
+          Waiting on your sign-off.</p></div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px">
+      <a class="btn" href="index.html">Open the live studio →</a>
+      <a class="btn ghost" href="sheet.png">Character sheet</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>Built with the FlyMascots studio track · procedural Three.js · route B</span>
+  <span>Renders captured headlessly at 1200 px, ACES tone mapping</span>
+</footer>
+
+<script>
+/* ---------- silhouette chart ---------- */
+const PROFILE = [0.045,0.342,0.439,0.539,0.592,0.568,0.487,0.284,0.297,0.345,0.371,
+                 0.392,0.384,0.379,0.379,0.384,0.403,0.479,0.547,0.0,0.008];
+const chart = document.getElementById('chart');
+const maxV = Math.max(...PROFILE);
+PROFILE.forEach((v,i) => {
+  const d = document.createElement('div');
+  d.style.height = Math.max(2, (v / maxV) * 100) + '%';
+  d.dataset.v = (i*5) + '% · ' + v.toFixed(3);
+  chart.appendChild(d);
+});
+
+/* ---------- pipeline ---------- */
+const STAGES = [
+  { label:'Blockout', title:'Blockout',
+    body:'Five reference angles cropped from the sheet, then a silhouette pass on the front view: thresholded off the paper, sampled every 5 % of its height. That gave a numeric width profile instead of a guess, and it immediately showed the skull is far wider than it is tall and the body is a tall barrel, not a squat egg.',
+    note:'<b>Correction this caught:</b> the first build had the head at 47 % of total height. The sheet says 33 %.',
+    stats:[['Sheet height','380 px'],['Samples','21 slices'],['Ear span','0.592 w/H'],['Neck pinch','0.284 w/H']] },
+  { label:'Structural', title:'Structural forms',
+    body:'Torso as a lathe from a 16-point radius profile, so the chest, waist and hip flare are one continuous surface. Skull as a deformed sphere with crown squash, cheek fill and jaw taper. Limbs as tapered lathes rather than capsules, which removes the tube-and-socket look at the shoulder.',
+    note:'<b>Correction this caught:</b> the lathe base was a point, so the body swallowed the legs and only 0.14 of each limb showed.',
+    stats:[['Torso','lathe · 16 pts'],['Skull','ellipsoid · 64×48'],['Legs','lathe · 28 seg'],['Root offset','−0.678']] },
+  { label:'Form', title:'Form refinement',
+    body:'Muzzle, chin, bridge, cheek pads, nose wings and philtrum placed as separate volumes that merge into the skull. Ears rebuilt three times — a Frenet-framed tube twisted into a blade, a lofted ring ear still read as a pointed paddle, and the final version is a deformed sphere with the root tapered and translated onto the pivot.',
+    note:'<b>Correction this caught:</b> negative-scale mirroring flips winding order, so the right ear vanished under back-face culling. Mirror by rotation instead.',
+    stats:[['Ear','sphere · 36×28'],['Muzzle','0.228 × 0.172'],['Eyes','5 layers'],['Ear pivot','±0.452']] },
+  { label:'Material', title:'Materials',
+    body:'Seven physical materials sharing one procedural fur grain used as a bump map. The coat is vertex-painted rather than textured: front-facing angles get lerped toward a cream blaze, the underside gets a belly lift, and everything gets a small ambient-occlusion shade. Collar is emerald with a gold paw-print tag.',
+    note:'<b>Correction this caught:</b> a vertex-coloured material applied to an un-painted sphere renders black — that was the mystery dark ovals at the shoulders.',
+    stats:[['Materials','7'],['Fur','#C8823A'],['Collar','#1B6B4E'],['Tag','#C99A32']] },
+  { label:'Surface', title:'Surface & silhouette',
+    body:'A silhouette render was captured with an alpha pass and measured against the sheet with the same 5 % sampler. That closed the loop between the reference and the model — the two profiles now agree within a few percent through the head, neck and chest.',
+    note:'<b>Correction this caught:</b> alpha captures came back fully opaque because the root <code>html</code> element still had the page background painted.',
+    stats:[['Alpha pass','RGBA'],['Match','head / neck / chest'],['Paws','1.4× body'],['Tail','5-point sweep']] },
+  { label:'Lighting', title:'Lighting',
+    body:'A three-light studio: warm key with 2048 shadows, cool fill from camera-left, warm rim behind, plus a low hemisphere bounce. Exposure sits at 0.84 with ACES so the gold keeps its saturation instead of bleaching to cream.',
+    note:'<b>Correction this caught:</b> the first lighting pass was so flat the whole sculpt read as untextured clay.',
+    stats:[['Key','2.55'],['Fill','0.85'],['Rim','1.35'],['Exposure','0.84']] },
+  { label:'Motion', title:'Motion & interaction',
+    body:'A 120 Hz spring integrator drives every expression channel, so moods settle rather than snap. Pointer orbit, click-to-boop, keyboard shortcuts, turntable and a deterministic capture API for headless stills. Seven moods and eight poses, all from the sheet’s own labels.',
+    note:'<b>Correction this caught:</b> the wink channel closed the wrong eye — the sheet closes the viewer’s left, which is the character’s right.',
+    stats:[['Springs','120 Hz'],['Moods','7'],['Poses','8'],['Shortcuts','9']] },
+  { label:'Polish', title:'Polish & review',
+    body:'Final tone pass, tag seated on the chest instead of floating inside it, shadow bias tuned to kill acne, and the review set captured: five angles, seven moods, seven poses and the full studio page. This is the gate — nothing ships until you sign off.',
+    note:'<b>Still open:</b> muzzle volume, eyelid geometry, fur surface detail, and ground contact on sit / lie.',
+    stats:[['Renders','26 stills'],['Triangles','142 k'],['Draw calls','129'],['Bundle','589 kB']] },
+];
+
+const rail = document.getElementById('rail');
+const fill = document.getElementById('fill');
+let active = 0;
+
+STAGES.forEach((s,i) => {
+  const b = document.createElement('button');
+  b.className = 'node';
+  b.setAttribute('role','tab');
+  b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+  b.innerHTML = '<span class="dot">' + String(i+1).padStart(2,'0') + '</span>' +
+                '<span class="nlabel">' + s.label + '</span>';
+  b.addEventListener('click', () => select(i));
+  rail.appendChild(b);
+});
+
+function select(i){
+  active = i;
+  const nodes = rail.querySelectorAll('.node');
+  nodes.forEach((n,k) => n.setAttribute('aria-selected', k === i ? 'true' : 'false'));
+  const s = STAGES[i];
+  document.getElementById('p-title').textContent = s.title;
+  document.getElementById('p-body').textContent = s.body;
+  document.getElementById('p-note').innerHTML = s.note;
+  document.getElementById('p-stats').innerHTML = s.stats
+    .map(([k,v]) => '<div class="stat"><span>'+k+'</span><b>'+v+'</b></div>').join('');
+  const pct = (i / (STAGES.length - 1)) * 100;
+  fill.style.width = 'calc(' + pct + '% - ' + (pct ? 0 : 0) + 'px)';
+  document.querySelector('.panel').animate(
+    [{opacity:.35, transform:'translateY(6px)'},{opacity:1, transform:'none'}],
+    {duration:260, easing:'cubic-bezier(.2,0,.2,1)'});
+}
+select(0);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') select(Math.min(STAGES.length-1, active+1));
+  if (e.key === 'ArrowLeft')  select(Math.max(0, active-1));
+});
+
+/* ---------- scorecard ---------- */
+const SCORES = [
+  ['Silhouette fidelity', 88, false, 'Measured against the sheet at 5 % steps; head, neck and chest land within a few percent.'],
+  ['Appeal / charm', 78, false, 'Big eyes, lop ears and the tongue read instantly. The muzzle is still a soft pale oval rather than a shaped snout.'],
+  ['Form detail', 62, true, 'Smooth sculptural volumes with no fur break-up, no eyelids and no brow ridge. This is the main gap to “super beautiful”.'],
+  ['Material & light', 74, false, 'Warm studio lighting holds the gold, but the coat is uniform — it needs tonal variation and a proper sheen map.'],
+  ['Rig & motion', 82, false, 'Springs give real weight and the mood set is legible. Sit and lie need ground-contact work.'],
+  ['Production readiness', 70, true, 'Single self-contained bundle, deterministic captures, full API. Not yet registered in the shipping cast.'],
+];
+document.getElementById('score').innerHTML = SCORES.map(([name,val,gold,note]) => `
+  <div class="srow">
+    <div class="top"><h4>${name}</h4><span class="val">${val}</span></div>
+    <div class="bar${gold ? ' gold' : ''}"><i data-w="${val}"></i></div>
+    <p>${note}</p>
+  </div>`).join('');
+
+function fillBars(root){
+  root.querySelectorAll('.bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
+}
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { fillBars(e.target); io.unobserve(e.target); }});
+}, {threshold:.15});
+io.observe(document.getElementById('score'));
+// full-page captures never scroll, so paint them once regardless
+setTimeout(() => fillBars(document.getElementById('score')), 500);
+</script>
+</body>
+</html>

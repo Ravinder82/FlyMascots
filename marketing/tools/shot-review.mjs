@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer-core';
+const b = await puppeteer.launch({headless:'new', executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', args:['--use-gl=angle','--hide-scrollbars']});
+const p = await b.newPage();
+const errs=[]; p.on('pageerror',e=>errs.push(String(e)));
+await p.setViewport({width:1240,height:1400,deviceScaleFactor:1});
+await p.goto('http://127.0.0.1:8766/studio/pup/review.html',{waitUntil:'networkidle2'});
+await new Promise(r=>setTimeout(r,900));
+const h = await p.evaluate(()=>document.documentElement.scrollHeight);
+await p.screenshot({path:'studio/pup/renders/review-page-full.png', fullPage:true});
+console.log(JSON.stringify({errors:errs, height:h}));
+await b.close();
